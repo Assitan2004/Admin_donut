@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sweet Ring — Paramètres</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,91 +17,101 @@
   <div class="content page-enter">
 
     <div class="two-col">
-      <!-- Colonne gauche -->
-      <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:24px">
 
         <div class="card">
-          <div class="card-header"><div class="card-title">👤 Mon compte</div></div>
+          <div class="card-header">
+            <div class="card-title"><i class="fa-regular fa-user" style="color: var(--pink); margin-right: 8px;"></i>Mon compte</div>
+          </div>
           <div class="card-body">
             <div style="display:flex;align-items:center;gap:16px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border)">
-              <div style="width:62px;height:62px;background:linear-gradient(135deg,var(--pink),#FF6B7A);border-radius:16px;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:24px;flex-shrink:0;box-shadow:0 4px 12px rgba(232,65,90,0.3)">A</div>
+              <div style="width:54px;height:54px;background:linear-gradient(135deg, var(--pink), #FF6B7A);border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:20px;flex-shrink:0;box-shadow:0 4px 12px rgba(232,65,90,0.2)">A</div>
               <div>
-                <div style="font-weight:800;font-size:16px;letter-spacing:-0.3px">Administrateur</div>
-                <div style="font-size:12px;color:var(--muted)">admin@sweetring.fr</div>
-                <button class="btn btn-outline btn-sm" style="margin-top:8px" onclick="showToast('📸 Changer la photo')">Changer photo</button>
+                <div style="font-weight:800;font-size:15px;letter-spacing:-0.3px;color:var(--text)">Administrateur</div>
+                <div style="font-size:12px;color:var(--muted);margin-bottom:6px">admin@sweetring.fr</div>
+                <button class="btn btn-outline btn-sm" onclick="showToast('<i class=\'fa-solid fa-camera\'></i> Module caméra activé')"><i class="fa-solid fa-camera" style="font-size:11px;margin-right:4px"></i>Changer photo</button>
               </div>
             </div>
             <div class="form-group"><label>Nom complet</label><input type="text" value="Administrateur Sweet Ring"></div>
             <div class="form-group"><label>Email</label><input type="email" value="admin@sweetring.fr"></div>
             <div class="form-group"><label>Téléphone</label><input type="tel" value="+33 6 12 34 56 78"></div>
-            <button class="btn btn-primary" onclick="showToast('✅ Profil mis à jour !')">💾 Enregistrer</button>
+            <button class="btn btn-primary" onclick="showToast('<i class=\'fa-solid fa-circle-check\' style=\'color:var(--green)\'></i> Profil mis à jour')"><i class="fa-regular fa-floppy-disk"></i> Enregistrer</button>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-header"><div class="card-title">🔒 Sécurité</div></div>
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-shield-halved" style="color: var(--amber); margin-right: 8px;"></i>Sécurité</div>
+          </div>
           <div class="card-body">
             <div class="form-group"><label>Mot de passe actuel</label><input type="password" placeholder="••••••••"></div>
             <div class="form-group"><label>Nouveau mot de passe</label><input type="password" placeholder="••••••••"></div>
             <div class="form-group"><label>Confirmer le mot de passe</label><input type="password" placeholder="••••••••"></div>
-            <button class="btn btn-primary" onclick="showToast('✅ Mot de passe modifié !')">🔒 Changer le mot de passe</button>
+            <button class="btn btn-primary" onclick="showToast('<i class=\'fa-solid fa-key\' style=\'color:var(--amber)\'></i> Mot de passe modifié')"><i class="fa-solid fa-lock"></i> Changer le mot de passe</button>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-header"><div class="card-title">🎨 Apparence du site</div></div>
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-palette" style="color: var(--blue); margin-right: 8px;"></i>Apparence du site</div>
+          </div>
           <div class="card-body">
             <div class="form-group">
               <label>Couleur principale</label>
               <div style="display:flex;gap:10px;margin-top:8px">
-                <div style="width:32px;height:32px;border-radius:9px;background:#E8415A;cursor:pointer;border:3px solid var(--text)" title="Rose (défaut)" onclick="showToast('🎨 Rose sélectionné')"></div>
-                <div style="width:32px;height:32px;border-radius:9px;background:#F5A623;cursor:pointer;border:2px solid transparent" title="Amber" onclick="showToast('🎨 Amber sélectionné')"></div>
-                <div style="width:32px;height:32px;border-radius:9px;background:#22C982;cursor:pointer;border:2px solid transparent" title="Vert" onclick="showToast('🎨 Vert sélectionné')"></div>
-                <div style="width:32px;height:32px;border-radius:9px;background:#3B82F6;cursor:pointer;border:2px solid transparent" title="Bleu" onclick="showToast('🎨 Bleu sélectionné')"></div>
-                <div style="width:32px;height:32px;border-radius:9px;background:#8B5CF6;cursor:pointer;border:2px solid transparent" title="Violet" onclick="showToast('🎨 Violet sélectionné')"></div>
+                <div style="width:32px;height:32px;border-radius:9px;background:#E8415A;cursor:pointer;border:3px solid var(--text)" title="Rose (défaut)" onclick="showToast('<i class=\'fa-solid fa-palette\' style=\'color:#E8415A\'></i> Thème rose sélectionné')"></div>
+                <div style="width:32px;height:32px;border-radius:9px;background:#F5A623;cursor:pointer;border:2px solid transparent" title="Amber" onclick="showToast('<i class=\'fa-solid fa-palette\' style=\'color:#F5A623\'></i> Thème amber sélectionné')"></div>
+                <div style="width:32px;height:32px;border-radius:9px;background:#22C982;cursor:pointer;border:2px solid transparent" title="Vert" onclick="showToast('<i class=\'fa-solid fa-palette\' style=\'color:#22C982\'></i> Thème vert sélectionné')"></div>
+                <div style="width:32px;height:32px;border-radius:9px;background:#3B82F6;cursor:pointer;border:2px solid transparent" title="Bleu" onclick="showToast('<i class=\'fa-solid fa-palette\' style=\'color:#3B82F6\'></i> Thème bleu sélectionné')"></div>
+                <div style="width:32px;height:32px;border-radius:9px;background:#8B5CF6;cursor:pointer;border:2px solid transparent" title="Violet" onclick="showToast('<i class=\'fa-solid fa-palette\' style=\'color:#8B5CF6\'></i> Thème violet sélectionné')"></div>
               </div>
             </div>
             <div class="form-group"><label>Police du site</label><select><option>Plus Jakarta Sans (défaut)</option><option>Inter</option><option>Poppins</option><option>Montserrat</option></select></div>
-            <button class="btn btn-primary" onclick="showToast('🎨 Apparence mise à jour !')">Appliquer</button>
+            <button class="btn btn-primary" onclick="showToast('<i class=\'fa-solid fa-wand-magic-sparkles\' style=\'color:var(--blue)\'></i> Interface mise à jour')"><i class="fa-solid fa-wand-magic-sparkles"></i> Appliquer</button>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-header"><div class="card-title">🚪 Session</div></div>
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-arrow-right-from-bracket" style="color: var(--red); margin-right: 8px;"></i>Session</div>
+          </div>
           <div class="card-body">
-            <p style="font-size:13.5px;color:var(--muted);margin-bottom:18px">Vous êtes connecté en tant qu'Administrateur. Dernière connexion : aujourd'hui à 9h14.</p>
-            <a href="login.html" class="btn btn-danger" style="width:100%;justify-content:center">Se déconnecter</a>
+            <p style="font-size:13.5px;color:var(--muted);margin-bottom:18px;line-height:1.4">Vous êtes connecté en tant qu'Administrateur. Dernière connexion : aujourd'hui à 9h14.</p>
+            <a href="login.html" class="btn btn-danger" style="width:100%;justify-content:center"><i class="fa-solid fa-power-off"></i> Se déconnecter</a>
           </div>
         </div>
 
       </div>
 
-      <!-- Colonne droite -->
-      <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:24px">
 
         <div class="card">
-          <div class="card-header"><div class="card-title">🔔 Notifications</div></div>
-          <div class="card-body">
-            <div class="settings-row"><div><div class="settings-label">Nouvelles commandes</div><div class="settings-desc">Alerte à chaque nouvelle commande reçue</div></div><label class="toggle"><input type="checkbox" checked onchange="showToast('🔔 Paramètre mis à jour')"><span class="toggle-slider"></span></label></div>
-            <div class="settings-row"><div><div class="settings-label">Commandes prêtes</div><div class="settings-desc">Rappel de retrait client</div></div><label class="toggle"><input type="checkbox" checked onchange="showToast('🔔 Paramètre mis à jour')"><span class="toggle-slider"></span></label></div>
-            <div class="settings-row"><div><div class="settings-label">Nouveaux RDV</div><div class="settings-desc">Notification par email</div></div><label class="toggle"><input type="checkbox" checked onchange="showToast('🔔 Paramètre mis à jour')"><span class="toggle-slider"></span></label></div>
-            <div class="settings-row"><div><div class="settings-label">Rapports hebdomadaires</div><div class="settings-desc">Résumé chaque lundi matin</div></div><label class="toggle"><input type="checkbox" onchange="showToast('🔔 Paramètre mis à jour')"><span class="toggle-slider"></span></label></div>
-            <div class="settings-row"><div><div class="settings-label">Alertes stock faible</div><div class="settings-desc">Sous 10 unités disponibles</div></div><label class="toggle"><input type="checkbox" checked onchange="showToast('🔔 Paramètre mis à jour')"><span class="toggle-slider"></span></label></div>
+          <div class="card-header">
+            <div class="card-title"><i class="fa-regular fa-bell" style="color: var(--purple); margin-right: 8px;"></i>Notifications</div>
+          </div>
+          <div class="card-body" style="padding-top:0;padding-bottom:8px">
+            <div class="settings-row"><div><div class="settings-label">Nouvelles commandes</div><div class="settings-desc">Alerte à chaque nouvelle commande reçue</div></div><label class="toggle"><input type="checkbox" checked onchange="showToast('<i class=\'fa-solid fa-bell-sliders\'></i> Préférence modifiée')"><span class="toggle-slider"></span></label></div>
+            <div class="settings-row"><div><div class="settings-label">Commandes prêtes</div><div class="settings-desc">Rappel de retrait client</div></div><label class="toggle"><input type="checkbox" checked onchange="showToast('<i class=\'fa-solid fa-bell-sliders\'></i> Préférence modifiée')"><span class="toggle-slider"></span></label></div>
+            <div class="settings-row"><div><div class="settings-label">Nouveaux RDV</div><div class="settings-desc">Notification par email</div></div><label class="toggle"><input type="checkbox" checked onchange="showToast('<i class=\'fa-solid fa-bell-sliders\'></i> Préférence modifiée')"><span class="toggle-slider"></span></label></div>
+            <div class="settings-row"><div><div class="settings-label">Rapports hebdomadaires</div><div class="settings-desc">Résumé chaque lundi matin</div></div><label class="toggle"><input type="checkbox" onchange="showToast('<i class=\'fa-solid fa-bell-sliders\'></i> Préférence modifiée')"><span class="toggle-slider"></span></label></div>
+            <div class="settings-row"><div><div class="settings-label">Alertes stock faible</div><div class="settings-desc">Sous 10 unités disponibles</div></div><label class="toggle"><input type="checkbox" checked onchange="showToast('<i class=\'fa-solid fa-bell-sliders\'></i> Préférence modifiée')"><span class="toggle-slider"></span></label></div>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-header"><div class="card-title">🏪 Paramètres boutique</div></div>
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-store" style="color: var(--green); margin-right: 8px;"></i>Paramètres boutique</div>
+          </div>
           <div class="card-body">
             <div class="form-group"><label>Nom de la boutique</label><input type="text" value="Sweet Ring"></div>
             <div class="form-group"><label>Devise</label><select><option selected>Euro (€)</option><option>Dollar ($)</option><option>Livre (£)</option></select></div>
             <div class="form-group"><label>Délai de préparation</label><select><option>30 minutes</option><option selected>1 heure</option><option>2 heures</option><option>Sur commande</option></select></div>
             <div class="form-group"><label>Commande minimum (€)</label><input type="number" value="5" min="0"></div>
-            <div class="settings-row" style="padding:12px 0">
+            <div class="settings-row" style="padding:16px 0;margin-bottom:12px">
               <div><div class="settings-label">Mode maintenance</div><div class="settings-desc">Cache le site aux visiteurs</div></div>
-              <label class="toggle"><input type="checkbox" onchange="showToast(this.checked?'⚠️ Mode maintenance activé':'✅ Site en ligne')"><span class="toggle-slider"></span></label>
+              <label class="toggle"><input type="checkbox" onchange="showToast(this.checked ? '<i class=\'fa-solid fa-triangle-exclamation\' style=\'color:var(--amber)\'></i> Mode maintenance activé' : '<i class=\'fa-solid fa-circle-check\' style=\'color:var(--green)\'></i> Site public en ligne')"><span class="toggle-slider"></span></label>
             </div>
-            <button class="btn btn-primary" style="margin-top:8px" onclick="showToast('✅ Paramètres boutique sauvegardés !')">💾 Sauvegarder</button>
+            <button class="btn btn-primary" onclick="showToast('<i class=\'fa-solid fa-circle-check\' style=\'color:var(--green)\'></i> Configuration boutique enregistrée')"><i class="fa-regular fa-floppy-disk"></i> Sauvegarder</button>
           </div>
         </div>
 
@@ -110,10 +123,17 @@
 
 <div class="modal-overlay" id="modal-quick-add">
   <div class="modal">
-    <div class="modal-title">➕ Ajouter <button class="close-btn" onclick="closeModal('modal-quick-add')">×</button></div>
+    <div class="modal-title">
+      <span><i class="fa-solid fa-circle-plus" style="margin-right: 8px; color: var(--text);"></i>Ajouter un élément</span>
+      <button class="close-btn" onclick="closeModal('modal-quick-add')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <a href="produits.html" class="btn btn-outline" style="padding:20px;flex-direction:column;gap:8px;height:auto;font-size:13px;text-decoration:none;justify-content:center"><span style="font-size:28px">🍩</span>Produit</a>
-      <a href="rendez-vous.html" class="btn btn-outline" style="padding:20px;flex-direction:column;gap:8px;height:auto;font-size:13px;text-decoration:none;justify-content:center"><span style="font-size:28px">📅</span>Rendez-vous</a>
+      <a href="produits.html" class="btn btn-outline" style="padding:24px 16px;flex-direction:column;gap:10px;height:auto;font-size:13px;text-decoration:none;justify-content:center">
+        <i class="fa-solid fa-cookie-bite" style="font-size: 24px; color: var(--pink);"></i>Produit
+      </a>
+      <a href="rendez-vous.html" class="btn btn-outline" style="padding:24px 16px;flex-direction:column;gap:10px;height:auto;font-size:13px;text-decoration:none;justify-content:center">
+        <i class="fa-solid fa-calendar-days" style="font-size: 24px; color: var(--blue);"></i>Rendez-vous
+      </a>
     </div>
   </div>
 </div>
