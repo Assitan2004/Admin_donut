@@ -1,4 +1,4 @@
-/* shared-layout.js — injecte la sidebar et la topbar dans chaque page */
+/* shared-layout.js — injecte la sidebar, la topbar et gère l'immobilité et le mode mobile */
 function getActivePage() {
   const path = window.location.pathname.split('/').pop();
   const map = {
@@ -52,16 +52,18 @@ function renderLayout(pageTitle) {
     parametres: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>'
   };
 
+  /* Ajout de id="app-sidebar" requis pour le script et du bouton de fermeture mobile */
   const sidebar = `
-<aside class="sidebar">
+<aside class="sidebar" id="app-sidebar">
   <div class="sidebar-logo">
     <div class="logo-mark">
       <div class="logo-icon">🍩</div>
       <div>
-        <div class="logo-text">Sweet Ring</div>
+        <div class="logo-text">B!SKUIT</div>
         <div class="logo-sub">Administration</div>
       </div>
     </div>
+    <button class="sidebar-close-btn" onclick="toggleMobileSidebar()"><i class="fa-solid fa-xmark"></i></button>
   </div>
   <nav class="nav">
     <div class="nav-section">Principal</div>
@@ -85,11 +87,14 @@ function renderLayout(pageTitle) {
       </div>
     </a>
   </div>
-</aside>`;
+</aside>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleMobileSidebar()"></div>`;
 
+  /* Injection du bouton .menu-trigger (icône bars Font Awesome) à gauche du titre de la page */
   const topbar = `
 <div class="topbar">
   <div class="topbar-left">
+    <button class="menu-trigger" onclick="toggleMobileSidebar()"><i class="fa-solid fa-bars"></i></button>
     <div class="page-title">${pageTitle}</div>
   </div>
   <div class="topbar-actions">
@@ -99,7 +104,7 @@ function renderLayout(pageTitle) {
       </span>
       <input type="text" placeholder="Rechercher..." style="width:200px;padding-left:40px;background:var(--bg);border:1.5px solid var(--border)">
     </div>
-    <button class="topbar-icon-btn" onclick="showToast('✅ Site mis à jour !')">
+    <button class="topbar-icon-btn" onclick="showToast('<i class=\\'fa-solid fa-arrows-rotate\\'></i> Site mis à jour !')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
     </button>
     <button class="topbar-icon-btn" style="position:relative">
@@ -118,13 +123,24 @@ function renderLayout(pageTitle) {
   document.getElementById('topbar-slot').innerHTML = topbar;
 }
 
+// ── FONCTION D'INTERACTION DE LA SIDEBAR (OUVERTURE ET FERMETURE MOBILE) ──
+function toggleMobileSidebar() {
+  const sidebar = document.getElementById('app-sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  
+  if (sidebar && overlay) {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('visible');
+  }
+}
+
 // ── SHARED JS UTILS ──
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
+  t.innerHTML = msg; /* innerHTML gère les icônes vectorielles dans vos toasts */
   t.classList.add('show');
   clearTimeout(t._timer);
   t._timer = setTimeout(() => t.classList.remove('show'), 3000);
