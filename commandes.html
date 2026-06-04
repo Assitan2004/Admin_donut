@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Ring — Commandes</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="sidebar-slot"></div>
+<main class="main">
+  <div id="topbar-slot"></div>
+  <div class="content page-enter">
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-label">Total aujourd'hui</div><div class="stat-value" style="color:var(--pink)">247€</div><div class="stat-trend">↑ +12%</div></div>
+      <div class="stat-card"><div class="stat-label">En attente</div><div class="stat-value" style="color:var(--amber)">3</div><div class="stat-trend neutral">À traiter</div></div>
+      <div class="stat-card"><div class="stat-label">Prêtes</div><div class="stat-value" style="color:var(--green)">2</div><div class="stat-trend">À récupérer</div></div>
+      <div class="stat-card"><div class="stat-label">Livrées</div><div class="stat-value">13</div><div class="stat-trend">Aujourd'hui</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Toutes les commandes</div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <div class="search-wrap" style="position:relative">
+            <span class="search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
+            <input type="text" placeholder="Rechercher..." style="width:220px" oninput="filterOrders(this.value)">
+          </div>
+          <select style="width:auto;font-size:13px;padding:9px 12px" onchange="filterStatus(this.value)">
+            <option value="">Tous les statuts</option>
+            <option value="en attente">En attente</option>
+            <option value="prêt">Prêt</option>
+            <option value="livré">Livré</option>
+            <option value="annulé">Annulé</option>
+          </select>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modal-new-order')">+ Nouvelle commande</button>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>N°</th><th>Client</th><th>Produits</th><th>Total</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
+        <tbody id="orders-body">
+          <tr data-status="en attente"><td style="font-family:monospace;font-size:12px;font-weight:600;color:var(--muted)">#1045</td><td><strong>Lucie Bernard</strong><div style="font-size:11px;color:var(--muted)">lucie@email.fr</div></td><td>2x Caramel Salé, 1x Glazed</td><td style="font-weight:700;color:var(--pink)">11,30€</td><td style="font-size:12px;color:var(--muted)">Aujourd'hui</td><td><span class="badge badge-amber">En attente</span></td><td style="white-space:nowrap"><button class="btn btn-success btn-sm" onclick="changeOrderStatus(this,'prêt')">✓ Prêt</button> <button class="btn btn-danger btn-sm" onclick="openCancelModal(this)" style="margin-left:4px">✕</button></td></tr>
+          <tr data-status="en attente"><td style="font-family:monospace;font-size:12px;font-weight:600;color:var(--muted)">#1044</td><td><strong>Marie Dupont</strong><div style="font-size:11px;color:var(--muted)">marie@email.fr</div></td><td>3x Glazed Classic, 1x Nutella</td><td style="font-weight:700;color:var(--pink)">15,50€</td><td style="font-size:12px;color:var(--muted)">Aujourd'hui</td><td><span class="badge badge-amber">En attente</span></td><td style="white-space:nowrap"><button class="btn btn-success btn-sm" onclick="changeOrderStatus(this,'prêt')">✓ Prêt</button> <button class="btn btn-danger btn-sm" onclick="openCancelModal(this)" style="margin-left:4px">✕</button></td></tr>
+          <tr data-status="en attente"><td style="font-family:monospace;font-size:12px;font-weight:600;color:var(--muted)">#1043</td><td><strong>Thomas Klein</strong><div style="font-size:11px;color:var(--muted)">t.klein@email.fr</div></td><td>Box 6 assortis</td><td style="font-weight:700;color:var(--pink)">18,00€</td><td style="font-size:12px;color:var(--muted)">Aujourd'hui</td><td><span class="badge badge-amber">En attente</span></td><td style="white-space:nowrap"><button class="btn btn-success btn-sm" onclick="changeOrderStatus(this,'prêt')">✓ Prêt</button> <button class="btn btn-danger btn-sm" onclick="openCancelModal(this)" style="margin-left:4px">✕</button></td></tr>
+          <tr data-status="prêt"><td style="font-family:monospace;font-size:12px;font-weight:600;color:var(--muted)">#1042</td><td><strong>Sophie Laurent</strong><div style="font-size:11px;color:var(--muted)">sophie@email.fr</div></td><td>2x Choco Sprinkles</td><td style="font-weight:700;color:var(--pink)">7,00€</td><td style="font-size:12px;color:var(--muted)">Aujourd'hui</td><td><span class="badge badge-green">Prêt</span></td><td style="white-space:nowrap"><button class="btn btn-primary btn-sm" onclick="changeOrderStatus(this,'livré')">📦 Livrer</button> <button class="btn btn-danger btn-sm" onclick="openCancelModal(this)" style="margin-left:4px">✕</button></td></tr>
+          <tr data-status="prêt"><td style="font-family:monospace;font-size:12px;font-weight:600;color:var(--muted)">#1041</td><td><strong>Paul Morin</strong><div style="font-size:11px;color:var(--muted)">paul@email.fr</div></td><td>Box 12 mariage</td><td style="font-weight:700;color:var(--pink)">32,00€</td><td style="font-size:12px;color:var(--muted)">Hier</td><td><span class="badge badge-green">Prêt</span></td><td style="white-space:nowrap"><button class="btn btn-primary btn-sm" onclick="changeOrderStatus(this,'livré')">📦 Livrer</button> <button class="btn btn-danger btn-sm" onclick="openCancelModal(this)" style="margin-left:4px">✕</button></td></tr>
+          <tr data-status="livré"><td style="font-family:monospace;font-size:12px;font-weight:600;color:var(--muted)">#1040</td><td><strong>Emma Petit</strong><div style="font-size:11px;color:var(--muted)">emma@email.fr</div></td><td>4x Fraise Paillettes</td><td style="font-weight:700;color:var(--pink)">15,20€</td><td style="font-size:12px;color:var(--muted)">Hier</td><td><span class="badge badge-blue">Livré</span></td><td><span style="font-size:12px;color:var(--muted)">Terminé</span></td></tr>
+          <tr data-status="annulé"><td style="font-family:monospace;font-size:12px;font-weight:600;color:var(--muted)">#1039</td><td><strong>Lucas Roux</strong><div style="font-size:11px;color:var(--muted)">lucas@email.fr</div></td><td>1x Nutella Crunchy</td><td style="font-weight:700;color:var(--muted)">4,20€</td><td style="font-size:12px;color:var(--muted)">Hier</td><td><span class="badge badge-red">Annulé</span></td><td><span style="font-size:12px;color:var(--muted)">Annulé</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<!-- Modal Annulation -->
+<div class="modal-overlay" id="modal-cancel-order">
+  <div class="modal">
+    <div class="modal-title">⚠️ Annuler la commande <button class="close-btn" onclick="closeModal('modal-cancel-order')">×</button></div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:18px">Cette action est irréversible. La commande passera en statut "Annulé".</p>
+    <div class="form-group"><label>Motif d'annulation</label><select><option>Rupture de stock</option><option>Demande du client</option><option>Problème de livraison</option><option>Autre</option></select></div>
+    <div class="form-group"><label>Note interne</label><textarea rows="2" placeholder="Détails..."></textarea></div>
+    <div class="modal-actions"><button class="btn btn-outline" onclick="closeModal('modal-cancel-order')">Retour</button><button class="btn btn-danger" onclick="confirmCancel()">✕ Confirmer l'annulation</button></div>
+  </div>
+</div>
+
+<!-- Modal Nouvelle commande -->
+<div class="modal-overlay" id="modal-new-order">
+  <div class="modal">
+    <div class="modal-title">📦 Nouvelle commande <button class="close-btn" onclick="closeModal('modal-new-order')">×</button></div>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label>Prénom</label>
+        <input type="text" id="order-prenom" placeholder="Marie">
+      </div>
+      <div class="form-group">
+        <label>Nom</label>
+        <input type="text" id="order-nom" placeholder="Dupont">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="order-email" placeholder="client@email.fr">
+    </div>
+
+    <div class="form-group">
+      <label>Produits commandés</label>
+      <textarea id="order-produits" rows="3" placeholder="Ex: 2x Glazed Classic, 1x Box 6..."></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Montant total (€)</label>
+        <input type="number" id="order-total" step="0.01" placeholder="0.00">
+      </div>
+      <div class="form-group">
+        <label>Date de retrait</label>
+        <input type="date" id="order-date">
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modal-new-order')">Annuler</button>
+      <button class="btn btn-primary" onclick="creerCommande()">+ Créer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Quick Add -->
+<div class="modal-overlay" id="modal-quick-add">
+  <div class="modal">
+    <div class="modal-title">➕ Ajouter <button class="close-btn" onclick="closeModal('modal-quick-add')">×</button></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <button class="btn btn-outline" style="padding:20px;flex-direction:column;gap:8px;height:auto;font-size:13px" onclick="closeModal('modal-quick-add');openModal('modal-new-order')"><span style="font-size:28px">📦</span>Nouvelle commande</button>
+      <a href="rendez-vous.html" class="btn btn-outline" style="padding:20px;flex-direction:column;gap:8px;height:auto;font-size:13px;text-decoration:none;justify-content:center"><span style="font-size:28px">📅</span>Rendez-vous</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="shared-layout.js"></script>
+<script>
+renderLayout('Commandes');
+
+// --- CHARGEMENT DES DONNÉES DEPUIS PGADMIN ---
+async function fetchCommandes() {
+    try {
+        const response = await fetch('http://localhost:5000/api/commandes');
+        const commandes = await response.json();
+        
+        const tbody = document.getElementById('orders-body');
+        tbody.innerHTML = ''; // Vide les exemples HTML
+
+        commandes.forEach(cmd => {
+            const row = document.createElement('tr');
+            row.dataset.status = cmd.statut;
+            row.innerHTML = `
+                <td style="font-family:monospace;font-size:12px;font-weight:600;color:var(--muted)">#${cmd.id}</td>
+                <td><strong>${cmd.client_nom}</strong><div style="font-size:11px;color:var(--muted)">${cmd.client_email}</div></td>
+                <td>${cmd.produits}</td>
+                <td style="font-weight:700;color:var(--pink)">${cmd.total_prix}€</td>
+                <td style="font-size:12px;color:var(--muted)">${new Date(cmd.date_commande).toLocaleDateString()}</td>
+                <td><span class="badge ${getBadgeClass(cmd.statut)}">${cmd.statut}</span></td>
+                <td style="white-space:nowrap">${renderActions(cmd.id, cmd.statut)}</td>
+            `;
+            tbody.appendChild(row);
+        });
+        updateStats(commandes);
+    } catch (err) {
+        console.error("Erreur de connexion API:", err);
+    }
+}
+
+// --- FONCTION POUR CHANGER LE STATUT (API + PGADMIN) ---
+async function changeOrderStatus(id, newStatus) {
+    try {
+        const response = await fetch(`http://localhost:5000/api/commandes/${id}/statut`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ statut: newStatus })
+        });
+
+        if (response.ok) {
+            showToast(`✅ Commande #${id} passée en ${newStatus}`);
+            fetchCommandes(); // Rafraîchit les données depuis pgAdmin
+        }
+    } catch (err) {
+        showToast("❌ Erreur de mise à jour");
+    }
+}
+
+// --- UTILITAIRES ---
+function getBadgeClass(status) {
+    const classes = { 'en attente': 'badge-amber', 'prêt': 'badge-green', 'livré': 'badge-blue', 'annulé': 'badge-red' };
+    return classes[status] || 'badge-muted';
+}
+
+function renderActions(id, status) {
+    if (status === 'en attente') return `<button class="btn btn-success btn-sm" onclick="changeOrderStatus(${id}, 'prêt')">✓ Prêt</button>`;
+    if (status === 'prêt') return `<button class="btn btn-primary btn-sm" onclick="changeOrderStatus(${id}, 'livré')">📦 Livrer</button>`;
+    return `<span style="font-size:12px;color:var(--muted)">Terminé</span>`;
+}
+
+function updateStats(cmds) {
+    const total = cmds.filter(c => c.statut !== 'annulé').reduce((acc, c) => acc + parseFloat(c.total_prix), 0);
+    const attente = cmds.filter(c => c.statut === 'en attente').length;
+    document.querySelectorAll('.stat-value')[0].textContent = `${total.toFixed(2)}€`;
+    document.querySelectorAll('.stat-value')[1].textContent = attente;
+}
+
+// Lancer le chargement au démarrage
+fetchCommandes();
+
+async function creerCommande() {
+    // 1. On récupère les valeurs saisies par l'utilisateur
+    const prenom = document.getElementById('order-prenom').value;
+    const nom = document.getElementById('order-nom').value;
+    const email = document.getElementById('order-email').value;
+    const produits = document.getElementById('order-produits').value;
+    const total = document.getElementById('order-total').value;
+
+    // 2. On prépare l'objet pour la base de données
+    const nouvelleCommande = {
+        client_nom: `${prenom} ${nom}`,
+        client_email: email,
+        produits: produits,
+        total_prix: total,
+        statut: 'en attente'
+    };
+
+    try {
+        // 3. On envoie au Backend via une requête POST
+        const response = await fetch('http://localhost:5000/api/commandes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(nouvelleCommande)
+        });
+
+        if (response.ok) {
+            closeModal('modal-new-order');
+            showToast('📦 Commande enregistrée en base de données !');
+            
+            // On vide le formulaire pour la prochaine fois
+            document.querySelectorAll('#modal-new-order input, #modal-new-order textarea').forEach(el => el.value = '');
+            
+            // On rafraîchit le tableau pour voir la nouvelle commande apparaître
+            fetchCommandes(); 
+        } else {
+            showToast('❌ Erreur lors de l\'enregistrement');
+        }
+    } catch (err) {
+        console.error("Erreur API:", err);
+        showToast('❌ Le serveur ne répond pas');
+    }
+}
+</script>
+</body>
+</html>

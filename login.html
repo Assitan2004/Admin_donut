@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Ring — Connexion</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink: #E8415A; --pink-light: #FFF0F2; --pink-mid: #FDDDE2; --pink-dark: #B82D42;
+  --bg: #F5F6FA; --surface: #FFFFFF; --border: #EAECF2;
+  --text: #111827; --muted: #6B7280;
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  -webkit-font-smoothing: antialiased;
+  color: var(--text);
+}
+
+/* ── LEFT PANEL ── */
+.left-panel {
+  width: 48%;
+  background: linear-gradient(145deg, #1A0A14 0%, #2D1020 60%, #1A0A14 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  position: relative;
+  overflow: hidden;
+}
+.left-panel::before {
+  content: '';
+  position: absolute; top: -80px; right: -80px;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(232,65,90,0.35) 0%, transparent 65%);
+}
+.left-panel::after {
+  content: '';
+  position: absolute; bottom: -60px; left: 20%;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(255,107,122,0.2) 0%, transparent 65%);
+}
+
+.brand-area {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.brand-logo {
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, var(--pink), #FF6B7A);
+  border-radius: 24px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 38px;
+  margin: 0 auto 20px;
+  box-shadow: 0 8px 32px rgba(232,65,90,0.5);
+}
+.brand-name {
+  font-weight: 800;
+  font-size: 34px;
+  color: white;
+  letter-spacing: -0.8px;
+  margin-bottom: 8px;
+}
+.brand-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 400;
+  margin-bottom: 52px;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: 320px;
+}
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+}
+.feature-icon {
+  width: 38px; height: 38px;
+  background: rgba(232,65,90,0.2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.feature-text {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.4;
+}
+.feature-text strong {
+  display: block;
+  color: white;
+  font-weight: 600;
+  margin-bottom: 1px;
+}
+
+.left-footer {
+  margin-top: 48px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+/* ── RIGHT PANEL ── */
+.right-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: var(--bg);
+}
+
+.login-box {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-header {
+  margin-bottom: 36px;
+}
+.login-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.login-sub {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.login-sub span {
+  color: var(--pink);
+  font-weight: 600;
+}
+
+.form-group { margin-bottom: 20px; }
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.input-wrap {
+  position: relative;
+}
+.input-wrap input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.input-wrap input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 4px rgba(232,65,90,0.1);
+}
+.input-wrap input::placeholder { color: #B0B8C4; }
+.input-icon {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--muted); pointer-events: none;
+}
+.input-icon svg { width: 16px; height: 16px; }
+.input-suffix {
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--muted); cursor: pointer; transition: color 0.15s;
+  background: none; border: none; padding: 0;
+}
+.input-suffix:hover { color: var(--text); }
+.input-suffix svg { width: 16px; height: 16px; }
+
+.forgot-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.remember-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+.remember-check {
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+  cursor: pointer;
+  background: var(--surface);
+}
+.remember-check.checked {
+  background: var(--pink);
+  border-color: var(--pink);
+}
+.remember-check.checked::after {
+  content: '';
+  width: 10px; height: 6px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg) translateY(-1px);
+  display: block;
+}
+.remember-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+.forgot-link {
+  font-size: 13px;
+  color: var(--pink);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.forgot-link:hover { color: var(--pink-dark); }
+
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  background: var(--pink);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(232,65,90,0.35);
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: -0.2px;
+}
+.btn-login:hover {
+  background: var(--pink-dark);
+  box-shadow: 0 6px 22px rgba(232,65,90,0.45);
+  transform: translateY(-1px);
+}
+.btn-login:active { transform: translateY(0); }
+
+/* Loading state */
+.btn-login.loading {
+  pointer-events: none;
+  opacity: 0.85;
+}
+.spinner {
+  width: 18px; height: 18px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+}
+.btn-login.loading .spinner { display: block; }
+.btn-login.loading .btn-text { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 28px 0;
+}
+.divider-line { flex: 1; height: 1px; background: var(--border); }
+.divider-text { font-size: 12px; color: var(--muted); font-weight: 500; white-space: nowrap; }
+
+.demo-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.demo-btn:hover { background: var(--pink-light); border-color: var(--pink-mid); color: var(--pink); }
+
+/* ── ERROR ALERT ── */
+.error-alert {
+  display: none;
+  background: #FFF0F1;
+  border: 1px solid #FDD;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #E8415A;
+  font-weight: 500;
+  align-items: center;
+  gap: 8px;
+}
+.error-alert.show { display: flex; animation: shake 0.3s ease; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%,60% { transform: translateX(-4px); }
+  40%,80% { transform: translateX(4px); }
+}
+
+/* ── SUCCESS ── */
+.success-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 0;
+}
+.success-screen.show { display: flex; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.success-icon {
+  width: 70px; height: 70px;
+  background: var(--pink);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 24px rgba(232,65,90,0.4);
+  animation: pop 0.4s ease;
+}
+@keyframes pop { 0% { transform: scale(0.5); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
+.success-title { font-size: 22px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 6px; }
+.success-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+.progress-bar {
+  width: 200px; height: 4px;
+  background: var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--pink);
+  border-radius: 20px;
+  animation: progressFill 2s linear forwards;
+}
+@keyframes progressFill { from { width: 0; } to { width: 100%; } }
+
+.login-footer {
+  text-align: center;
+  margin-top: 32px;
+  font-size: 12px;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+
+<!-- LEFT PANEL -->
+<div class="left-panel">
+  <div class="brand-area">
+    <div class="brand-logo">🍩</div>
+    <div class="brand-name">Sweet Ring</div>
+    <div class="brand-sub">Espace d'administration</div>
+
+    <div class="features">
+      <div class="feature-item">
+        <div class="feature-icon">📦</div>
+        <div class="feature-text">
+          <strong>Gestion des commandes</strong>
+          Suivez et gérez toutes vos commandes en temps réel
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🍩</div>
+        <div class="feature-text">
+          <strong>Catalogue produits</strong>
+          Modifiez prix, promotions et disponibilités
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📅</div>
+        <div class="feature-text">
+          <strong>Rendez-vous & livraisons</strong>
+          Planifiez vos créneaux et clients
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📈</div>
+        <div class="feature-text">
+          <strong>Statistiques détaillées</strong>
+          Visualisez vos performances et tendances
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="left-footer">© 2025 Sweet Ring — Tous droits réservés</div>
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="right-panel">
+  <div class="login-box">
+
+    <!-- FORM STATE -->
+    <div id="form-state">
+      <div class="login-header">
+        <div class="login-title">Bon retour 👋</div>
+        <div class="login-sub">Connectez-vous à votre espace <span>Sweet Ring</span></div>
+      </div>
+
+      <!-- Error -->
+      <div class="error-alert" id="error-alert">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="error-msg">Email ou mot de passe incorrect.</span>
+      </div>
+
+      <div class="form-group">
+        <label>Adresse email</label>
+        <div class="input-wrap">
+          <span class="input-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </span>
+          <input type="email" id="email-input" placeholder="admin@sweetring.fr" >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <div class="input-wrap">
+          <span class="input-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </span>
+          <input type="password" id="pwd-input" placeholder="••••••••" >
+          <button class="input-suffix" onclick="togglePwd()" id="eye-btn">
+            <svg id="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="forgot-row">
+        <div class="remember-wrap" onclick="toggleRemember()">
+          <div class="remember-check" id="remember-check"></div>
+          <span class="remember-label">Se souvenir de moi</span>
+        </div>
+        <span class="forgot-link" onclick="showForgot()">Mot de passe oublié ?</span>
+      </div>
+
+      <button class="btn-login" id="login-btn" onclick="handleLogin()">
+        <span class="btn-text">Se connecter</span>
+        <div class="spinner"></div>
+      </button>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-text">ou accès rapide</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <button class="demo-btn" onclick="fillDemo()">
+        🍩 Utiliser le compte démo
+      </button>
+
+      <div class="login-footer">
+        Problème de connexion ? Contactez <a href="mailto:support@sweetring.fr" style="color:var(--pink);font-weight:600;text-decoration:none">support@sweetring.fr</a>
+      </div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-screen" id="success-state">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Connexion réussie !</div>
+      <div class="success-sub">Redirection vers le tableau de bord…</div>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="module">
+  // 1. Importation des fonctions Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+  // 2. Ta configuration Firebase (à copier depuis ta console Firebase)
+  const firebaseConfig = {
+  apiKey: "AIzaSyAnUn-FXhsROQmwtzJ6TOfL5UItpWCuAA0",
+  authDomain: "homedonut-d910d.firebaseapp.com",
+  projectId: "homedonut-d910d",
+  storageBucket: "homedonut-d910d.firebasestorage.app",
+  messagingSenderId: "691923694430",
+  appId: "1:691923694430:web:973b2f4a01f2d9f54f95cf",
+  measurementId: "G-TBJKPBP637"
+};
+
+  // 3. Initialisation
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // --- TES VARIABLES D'ÉTAT ---
+  let pwdVisible = false;
+  let rememberChecked = false;
+
+  // --- TES FONCTIONS UI (Modifiées pour être accessibles) ---
+  window.togglePwd = function() {
+    pwdVisible = !pwdVisible;
+    const input = document.getElementById('pwd-input');
+    const icon = document.getElementById('eye-icon');
+    input.type = pwdVisible ? 'text' : 'password';
+    // ... ton code SVG ici ...
+  };
+
+  window.showForgot = async function() {
+    const email = document.getElementById('email-input').value.trim();
+    const msg = document.getElementById('error-msg');
+    const alert = document.getElementById('error-alert');
+
+    if (!email) {
+      msg.textContent = "Veuillez entrer votre email pour réinitialiser.";
+      alert.classList.add('show');
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      msg.textContent = '📧 Email de réinitialisation envoyé !';
+      alert.style.background = '#EDFBF4'; // Style vert succès
+      alert.style.color = '#059950';
+      alert.classList.add('show');
+    } catch (error) {
+      msg.textContent = "Erreur : " + error.message;
+      alert.classList.add('show');
+    }
+  };
+
+  // --- LA FONCTION DE CONNEXION PRINCIPALE ---
+  window.handleLogin = async function() {
+    const email = document.getElementById('email-input').value.trim();
+    const pwd = document.getElementById('pwd-input').value;
+    const btn = document.getElementById('login-btn');
+    const errorAlert = document.getElementById('error-alert');
+    const errorMsg = document.getElementById('error-msg');
+
+    // Reset alert style au cas où c'était un succès avant
+    errorAlert.style.background = '#FFF0F1';
+    errorAlert.style.color = '#E8415A';
+
+    if (!email || !pwd) {
+      errorMsg.textContent = 'Veuillez remplir tous les champs.';
+      errorAlert.classList.add('show');
+      return;
+    }
+
+    // État de chargement (Animation)
+    btn.classList.add('loading');
+    errorAlert.classList.remove('show');
+
+    try {
+      // TENTATIVE DE CONNEXION
+      const userCredential = await signInWithEmailAndPassword(auth, email, pwd);
+      const user = userCredential.user;
+
+      console.log("Succès ! UID:", user.uid);
+
+      // Animation de succès
+      btn.classList.remove('loading');
+      document.getElementById('form-state').style.display = 'none';
+      document.getElementById('success-state').classList.add('show');
+
+      // Redirection vers le dashboard
+      setTimeout(() => {
+        window.location.href = 'tableau-de-bord.html';
+      }, 2000);
+
+    } catch (error) {
+      btn.classList.remove('loading');
+      errorAlert.classList.add('show');
+      
+      // Gestion des messages d'erreur selon le code Firebase
+      if (error.code === 'auth/invalid-credential') {
+        errorMsg.textContent = 'Email ou mot de passe incorrect.';
+      } else if (error.code === 'auth/user-not-found') {
+        errorMsg.textContent = 'Compte inexistant.';
+      } else {
+        errorMsg.textContent = 'Une erreur est survenue. Réessayez.';
+      }
+    }
+  };
+
+  // Touche Entrée
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') window.handleLogin();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Ring — Tableau de bord</title>
+<!-- Polices Jakarta Sans -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- CDN Officiel Font Awesome 6 pour charger les icônes -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="sidebar-slot"></div>
+
+<main class="main">
+  <div id="topbar-slot"></div>
+
+  <div class="content page-enter">
+
+    <!-- En-tête Moderne & Asymétrique Épuré -->
+    <div class="dashboard-hero">
+      <div class="welcome-block">
+        <h1 class="welcome-title">Bonjour, Administrateur ! <i class="fa-regular fa-hand-wave"></i></h1>
+        <p class="welcome-sub">Gérez votre boutique Sweet Ring en toute simplicité</p>
+      </div>
+      
+      <!-- Compteurs discrets et minimalistes alignés à droite -->
+      <div class="quick-stats-row">
+        <div class="q-stat">
+          <span class="q-val">247€</span>
+          <span class="q-label">Ventes today</span>
+        </div>
+        <div class="q-stat-divider"></div>
+        <div class="q-stat">
+          <span class="q-val">18</span>
+          <span class="q-label">Commandes</span>
+        </div>
+        <div class="q-stat-divider"></div>
+        <div class="q-stat">
+          <span class="q-val">5</span>
+          <span class="q-label">RDV</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stat Cards Bento -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--pink-light); color:var(--pink);">
+          <i class="fa-solid fa-wallet"></i>
+        </div>
+        <div class="stat-label">Ventes aujourd'hui</div>
+        <div class="stat-value" style="color:var(--pink)">247€</div>
+        <div class="stat-trend">↑ +12% vs hier</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--blue-light); color:var(--blue);">
+          <i class="fa-solid fa-bag-shopping"></i>
+        </div>
+        <div class="stat-label">Commandes</div>
+        <div class="stat-value">18</div>
+        <div class="stat-trend neutral">3 en attente</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--amber-light); color:var(--amber);">
+          <i class="fa-solid fa-cookie-bite"></i>
+        </div>
+        <div class="stat-label">Produits actifs</div>
+        <div class="stat-value">12</div>
+        <div class="stat-trend" style="color:var(--amber)">3 en promotion</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--green-light); color:var(--green);">
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+        <div class="stat-label">RDV aujourd'hui</div>
+        <div class="stat-value">5</div>
+        <div class="stat-trend down">1 en attente</div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-bottom:20px">
+      <!-- Dernières commandes -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Dernières commandes</div>
+          <a href="commandes.html" class="btn btn-outline btn-sm">Voir tout</a>
+        </div>
+        <table>
+          <thead><tr><th>Client</th><th>Montant</th><th>Statut</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Marie D.</strong><div style="font-size:11px;color:var(--muted)">3x Glazed Classic</div></td><td style="font-weight:700">12,50€</td><td><span class="badge badge-amber">En attente</span></td></tr>
+            <tr><td><strong>Thomas K.</strong><div style="font-size:11px;color:var(--muted)">Box 6 donuts</div></td><td style="font-weight:700">18,00€</td><td><span class="badge badge-green">Prêt</span></td></tr>
+            <tr><td><strong>Sophie L.</strong><div style="font-size:11px;color:var(--muted)">2x Choco Sprinkles</div></td><td style="font-weight:700">7,00€</td><td><span class="badge badge-blue">Livré</span></td></tr>
+            <tr><td><strong>Emma P.</strong><div style="font-size:11px;color:var(--muted)">Box 12 mariage</div></td><td style="font-weight:700">32,00€</td><td><span class="badge badge-blue">Livré</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Activité récente -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Activité récente</div></div>
+        <div class="card-body">
+          <div class="activity-item">
+            <div class="activity-dot" style="background:var(--pink-light); color:var(--pink);"><i class="fa-solid fa-box"></i></div>
+            <div class="activity-text"><strong>Nouvelle commande #1045</strong> — Marie Dupont<div class="activity-time">Il y a 5 min</div></div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot" style="background:var(--green-light); color:var(--green);"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="activity-text"><strong>Commande #1044 livrée</strong> — Emma Petit<div class="activity-time">Il y a 22 min</div></div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot" style="background:var(--amber-light); color:var(--amber);"><i class="fa-solid fa-calendar-check"></i></div>
+            <div class="activity-text"><strong>Nouveau RDV ajouté</strong> — Livraison Nexia<div class="activity-time">Il y a 1h</div></div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot" style="background:var(--blue-light); color:var(--blue);"><i class="fa-solid fa-user"></i></div>
+            <div class="activity-text"><strong>Nouveau client</strong> — Paul Martin<div class="activity-time">Il y a 2h</div></div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot" style="background:var(--purple-light); color:var(--purple);"><i class="fa-solid fa-tags"></i></div>
+            <div class="activity-text"><strong>Promo activée</strong> — Box 6 assortis -15%<div class="activity-time">Il y a 3h</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <!-- RDV du jour -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">RDV d'aujourd'hui</div>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modal-new-rdv')"><i class="fa-solid fa-plus"></i> RDV</button>
+        </div>
+        <div class="card-body">
+          <div class="appt-item"><div class="appt-time">10h00</div><div class="appt-info"><div class="appt-name">Commande anniversaire</div><div class="appt-detail">Julie M. — 24 donuts</div></div><span class="badge badge-pink">Confirmé</span></div>
+          <div class="appt-item"><div class="appt-time">14h30</div><div class="appt-info"><div class="appt-name">Livraison Nexia</div><div class="appt-detail">50 donuts assortis</div></div><span class="badge badge-amber">En attente</span></div>
+          <div class="appt-item"><div class="appt-time">16h00</div><div class="appt-info"><div class="appt-name">Café Lumière</div><div class="appt-detail">10 donuts dégustation</div></div><span class="badge badge-green">Confirmé</span></div>
+        </div>
+      </div>
+
+      <!-- Top produits -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Top produits ce mois</div></div>
+        <table>
+          <thead><tr><th>Produit</th><th>Vendus</th><th>CA</th></tr></thead>
+          <tbody>
+            <tr><td><i class="fa-solid fa-circle-dot" style="color:var(--pink); margin-right:6px;"></i>Glazed Classic</td><td><strong>342</strong></td><td style="color:var(--pink);font-weight:700">1 197€</td></tr>
+            <tr><td><i class="fa-solid fa-circle-dot" style="color:var(--pink); margin-right:6px;"></i>Choco Sprinkles</td><td><strong>278</strong></td><td style="color:var(--pink);font-weight:700">973€</td></tr>
+            <tr><td><i class="fa-solid fa-circle-dot" style="color:var(--pink); margin-right:6px;"></i>Box 6 assortis</td><td><strong>134</strong></td><td style="color:var(--pink);font-weight:700">2 412€</td></tr>
+            <tr><td><i class="fa-solid fa-circle-dot" style="color:var(--pink); margin-right:6px;"></i>Nutella Crunchy</td><td><strong>201</strong></td><td style="color:var(--pink);font-weight:700">844€</td></tr>
+            <tr><td><i class="fa-solid fa-circle-dot" style="color:var(--pink); margin-right:6px;"></i>Caramel Salé</td><td><strong>167</strong></td><td style="color:var(--pink);font-weight:700">651€</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Modal Nouveau RDV -->
+<div class="modal-overlay" id="modal-new-rdv">
+  <div class="modal">
+    <div class="modal-title">
+      <span><i class="fa-solid fa-calendar-days"></i> Nouveau rendez-vous</span>
+      <button class="close-btn" onclick="closeModal('modal-new-rdv')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="form-group"><label>Client</label><input type="text" placeholder="Nom ou entreprise"></div>
+    <div class="form-row"><div class="form-group"><label>Date</label><input type="date"></div><div class="form-group"><label>Heure</label><input type="time"></div></div>
+    <div class="form-group"><label>Nb de donuts</label><input type="number" placeholder="Ex: 24"></div>
+    <div class="form-group"><label>Notes</label><textarea rows="2" placeholder="Détails..."></textarea></div>
+    <div class="modal-actions"><button class="btn btn-outline" onclick="closeModal('modal-new-rdv')">Annuler</button><button class="btn btn-primary" onclick="closeModal('modal-new-rdv');showToast('📅 RDV ajouté !')">Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- Modal Quick Add -->
+<div class="modal-overlay" id="modal-quick-add">
+  <div class="modal">
+    <div class="modal-title">
+      <span><i class="fa-solid fa-circle-plus"></i> Ajouter</span>
+      <button class="close-btn" onclick="closeModal('modal-quick-add')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <a href="produits.html" class="btn btn-outline" style="padding:24px 16px;flex-direction:column;gap:10px;height:auto;font-size:13px;text-decoration:none;justify-content:center">
+        <i class="fa-solid fa-cookie" style="font-size:24px; color:var(--pink)"></i>Nouveau produit
+      </a>
+      <button class="btn btn-outline" style="padding:24px 16px;flex-direction:column;gap:10px;height:auto;font-size:13px" onclick="closeModal('modal-quick-add');openModal('modal-new-rdv')">
+        <i class="fa-solid fa-calendar-day" style="font-size:24px; color:var(--blue)"></i>Rendez-vous
+      </button>
+      <a href="clients.html" class="btn btn-outline" style="padding:24px 16px;flex-direction:column;gap:10px;height:auto;font-size:13px;text-decoration:none;justify-content:center">
+        <i class="fa-solid fa-user-plus" style="font-size:24px; color:var(--green)"></i>Nouveau client
+      </a>
+      <a href="contenu.html" class="btn btn-outline" style="padding:24px 16px;flex-direction:column;gap:10px;height:auto;font-size:13px;text-decoration:none;justify-content:center">
+        <i class="fa-solid fa-sliders" style="font-size:24px; color:var(--purple)"></i>Modifier contenu
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="shared-layout.js"></script>
+<script>renderLayout('Tableau de bord');</script>
+</body>
+</html>

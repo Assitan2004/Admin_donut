@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Ring — Clients</title>
+<!-- Polices Jakarta Sans -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- CDN Officiel Font Awesome 6 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="sidebar-slot"></div>
+<main class="main">
+  <div id="topbar-slot"></div>
+  <div class="content page-enter">
+
+    <!-- Stat Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total clients</div>
+        <div class="stat-value">148</div>
+        <div class="stat-trend">↑ +12 ce mois</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Clients fidèles</div>
+        <div class="stat-value" style="color:var(--pink)">34</div>
+        <div class="stat-trend">5+ commandes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Panier moyen</div>
+        <div class="stat-value">21,90€</div>
+        <div class="stat-trend">↑ +1,40€</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Note moyenne</div>
+        <div class="stat-value" style="color:var(--amber)">4,7 <i class="fa-solid fa-star" style="font-size: 18px;"></i></div>
+        <div class="stat-trend">Sur 312 avis</div>
+      </div>
+    </div>
+
+    <!-- Liste des clients -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Liste des clients</div>
+        <div style="display:flex;gap:10px">
+          <div class="search-wrap" style="position:relative">
+            <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text" placeholder="Rechercher un client..." style="width:240px">
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modal-new-client')"><i class="fa-solid fa-user-plus"></i> Nouveau client</button>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>Client</th><th>Email</th><th>Commandes</th><th>Total dépensé</th><th>Note</th><th>Statut</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><div style="display:flex;align-items:center;gap:10px"><div class="client-avatar" style="background:var(--pink-light);color:var(--pink)">MD</div><strong>Marie Dupont</strong></div></td>
+            <td style="color:var(--muted);font-size:12px">marie@email.fr</td>
+            <td style="font-weight:700">14</td>
+            <td style="font-weight:700;color:var(--pink)">187€</td>
+            <td>
+              <span class="rating-stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </span>
+            </td>
+            <td><span class="badge badge-pink">Fidèle</span></td>
+            <td><button class="btn btn-outline btn-sm" onclick="openModal('modal-client-detail')"><i class="fa-regular fa-eye"></i> Voir</button></td>
+          </tr>
+          <tr>
+            <td><div style="display:flex;align-items:center;gap:10px"><div class="client-avatar" style="background:var(--blue-light);color:var(--blue)">TK</div><strong>Thomas Klein</strong></div></td>
+            <td style="color:var(--muted);font-size:12px">t.klein@email.fr</td>
+            <td style="font-weight:700">8</td>
+            <td style="font-weight:700;color:var(--pink)">94€</td>
+            <td>
+              <span class="rating-stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star" style="color:#ddd"></i>
+              </span>
+            </td>
+            <td><span class="badge badge-green">Actif</span></td>
+            <td><button class="btn btn-outline btn-sm" onclick="openModal('modal-client-detail')"><i class="fa-regular fa-eye"></i> Voir</button></td>
+          </tr>
+          <tr>
+            <td><div style="display:flex;align-items:center;gap:10px"><div class="client-avatar" style="background:var(--green-light);color:var(--green)">SL</div><strong>Sophie Laurent</strong></div></td>
+            <td style="color:var(--muted);font-size:12px">sophie@email.fr</td>
+            <td style="font-weight:700">22</td>
+            <td style="font-weight:700;color:var(--pink)">341€</td>
+            <td>
+              <span class="rating-stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </span>
+            </td>
+            <td><span class="badge badge-pink">VIP</span></td>
+            <td><button class="btn btn-outline btn-sm" onclick="openModal('modal-client-detail')"><i class="fa-regular fa-eye"></i> Voir</button></td>
+          </tr>
+          <tr>
+            <td><div style="display:flex;align-items:center;gap:10px"><div class="client-avatar" style="background:var(--amber-light);color:#B07010">PM</div><strong>Paul Morin</strong></div></td>
+            <td style="color:var(--muted);font-size:12px">paul@email.fr</td>
+            <td style="font-weight:700">5</td>
+            <td style="font-weight:700;color:var(--pink)">62€</td>
+            <td>
+              <span class="rating-stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star" style="color:#ddd"></i>
+              </span>
+            </td>
+            <td><span class="badge badge-green">Actif</span></td>
+            <td><button class="btn btn-outline btn-sm" onclick="openModal('modal-client-detail')"><i class="fa-regular fa-eye"></i> Voir</button></td>
+          </tr>
+          <tr>
+            <td><div style="display:flex;align-items:center;gap:10px"><div class="client-avatar" style="background:var(--purple-light);color:var(--purple)">EP</div><strong>Emma Petit</strong></div></td>
+            <td style="color:var(--muted);font-size:12px">emma@email.fr</td>
+            <td style="font-weight:700">3</td>
+            <td style="font-weight:700;color:var(--pink)">38€</td>
+            <td>
+              <span class="rating-stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star" style="color:#ddd"></i><i class="fa-regular fa-star" style="color:#ddd"></i>
+              </span>
+            </td>
+            <td><span class="badge badge-gray">Nouveau</span></td>
+            <td><button class="btn btn-outline btn-sm" onclick="openModal('modal-client-detail')"><i class="fa-regular fa-eye"></i> Voir</button></td>
+          </tr>
+          <tr>
+            <td><div style="display:flex;align-items:center;gap:10px"><div class="client-avatar" style="background:var(--pink-light);color:var(--pink)">LB</div><strong>Lucie Bernard</strong></div></td>
+            <td style="color:var(--muted);font-size:12px">lucie@email.fr</td>
+            <td style="font-weight:700">7</td>
+            <td style="font-weight:700;color:var(--pink)">103€</td>
+            <td>
+              <span class="rating-stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </span>
+            </td>
+            <td><span class="badge badge-green">Actif</span></td>
+            <td><button class="btn btn-outline btn-sm" onclick="openModal('modal-client-detail')"><i class="fa-regular fa-eye"></i> Voir</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<!-- Modal Nouveau client -->
+<div class="modal-overlay" id="modal-new-client">
+  <div class="modal">
+    <div class="modal-title">
+      <span><i class="fa-regular fa-user" style="margin-right: 8px;"></i>Nouveau client</span>
+      <button class="close-btn" onclick="closeModal('modal-new-client')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="form-row"><div class="form-group"><label>Prénom</label><input type="text" placeholder="Marie"></div><div class="form-group"><label>Nom</label><input type="text" placeholder="Dupont"></div></div>
+    <div class="form-group"><label>Email</label><input type="email" placeholder="marie@email.fr"></div>
+    <div class="form-group"><label>Téléphone</label><input type="tel" placeholder="06 12 34 56 78"></div>
+    <div class="form-group"><label>Note interne</label><textarea rows="2" placeholder="Allergies, préférences..."></textarea></div>
+    <div class="modal-actions"><button class="btn btn-outline" onclick="closeModal('modal-new-client')">Annuler</button><button class="btn btn-primary" onclick="closeModal('modal-new-client');showToast('👤 Client ajouté !')"><i class="fa-solid fa-plus"></i> Ajouter</button></div>
+  </div>
+</div>
+
+<!-- Modal Détail client -->
+<div class="modal-overlay" id="modal-client-detail">
+  <div class="modal modal-lg">
+    <div class="modal-title">
+      <span><i class="fa-solid fa-address-card" style="margin-right: 8px;"></i>Fiche client — Sophie Laurent</span>
+      <button class="close-btn" onclick="closeModal('modal-client-detail')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border)">
+      <div class="client-avatar" style="width:52px;height:52px;background:var(--green-light);color:var(--green);font-size:17px;font-weight:800;border-radius:14px">SL</div>
+      <div style="flex:1"><div style="font-weight:800;font-size:17px;letter-spacing:-0.3px">Sophie Laurent</div><div style="font-size:12px;color:var(--muted)">sophie@email.fr · +33 6 98 76 54 32</div></div>
+      <span class="badge badge-pink">VIP · 22 commandes</span>
+    </div>
+    <div class="form-row" style="margin-bottom:18px">
+      <div style="text-align:center;padding:16px;background:var(--bg);border-radius:12px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--muted);margin-bottom:5px;font-weight:600;text-transform:uppercase">TOTAL DÉPENSÉ</div><div style="font-weight:800;font-size:24px;color:var(--pink);letter-spacing:-0.5px">341€</div></div>
+      <div style="text-align:center;padding:16px;background:var(--bg);border-radius:12px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--muted);margin-bottom:5px;font-weight:600;text-transform:uppercase">PANIER MOYEN</div><div style="font-weight:800;font-size:24px;letter-spacing:-0.5px">15,50€</div></div>
+    </div>
+    <div style="font-weight:700;font-size:14px;margin-bottom:12px">Dernières commandes</div>
+    <table>
+      <thead><tr><th>N°</th><th>Produits</th><th>Montant</th><th>Statut</th></tr></thead>
+      <tbody>
+        <tr><td style="font-family:monospace;font-size:12px;font-weight:600">#1042</td><td>2x Choco Sprinkles</td><td style="font-weight:700">7,00€</td><td><span class="badge badge-blue">Livré</span></td></tr>
+        <tr><td style="font-family:monospace;font-size:12px;font-weight:600">#1031</td><td>Box 6 assortis</td><td style="font-weight:700">15,30€</td><td><span class="badge badge-blue">Livré</span></td></tr>
+        <tr><td style="font-family:monospace;font-size:12px;font-weight:600">#1020</td><td>4x Glazed Classic</td><td style="font-weight:700">14,00€</td><td><span class="badge badge-blue">Livré</span></td></tr>
+      </tbody>
+    </table>
+    <div class="modal-actions"><button class="btn btn-outline" onclick="closeModal('modal-client-detail')">Fermer</button><button class="btn btn-primary" onclick="showToast('✉️ Email envoyé !')"><i class="fa-regular fa-envelope"></i> Envoyer un email</button></div>
+  </div>
+</div>
+
+<!-- Modal Quick Add -->
+<div class="modal-overlay" id="modal-quick-add">
+  <div class="modal">
+    <div class="modal-title">
+      <span><i class="fa-solid fa-circle-plus"></i> Ajouter</span>
+      <button class="close-btn" onclick="closeModal('modal-quick-add')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <button class="btn btn-outline" style="padding:20px;flex-direction:column;gap:10px;height:auto;font-size:13px" onclick="closeModal('modal-quick-add');openModal('modal-new-client')">
+        <i class="fa-solid fa-user" style="font-size: 24px; color: var(--pink);"></i>Nouveau client
+      </button>
+      <a href="commandes.html" class="btn btn-outline" style="padding:20px;flex-direction:column;gap:10px;height:auto;font-size:13px;text-decoration:none;justify-content:center">
+        <i class="fa-solid fa-box" style="font-size: 24px; color: var(--blue);"></i>Commande
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="shared-layout.js"></script>
+<script>renderLayout('Clients');</script>
+</body>
+</html>

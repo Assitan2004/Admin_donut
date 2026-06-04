@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donut & Co — Événements</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+ 
+  <!-- ═══════════════════════════════════════════
+       HEADER
+  ════════════════════════════════════════════ -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">🍩</span>
+      <span>Donut <em>&</em> Co</span>
+    </div>
+    <nav class="nav">
+      <a href="#">Accueil</a>
+      <a href="#events" class="active">Événements</a>
+      <a href="#">Menu</a>
+      <a href="#">Contact</a>
+    </nav>
+    <!-- Bouton visible seulement en mode admin -->
+    <button class="btn-primary" id="btnOpenForm" style="display:none;" onclick="openForm()">
+      + Nouvel événement
+    </button>
+    <!-- Toggle admin (à protéger par mot de passe dans une vraie app) -->
+    <button class="btn-ghost" id="btnAdmin" onclick="toggleAdmin()">Espace propriétaire</button>
+  </header>
+ 
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-bg-text">EVENTS</div>
+    <p class="hero-tag">Ateliers · Dégustations · Surprises sucrées</p>
+    <h1>Nos <em>événements</em></h1>
+    <p class="hero-sub">Rejoignez-nous pour des moments gourmands et inoubliables.</p>
+    <div class="sprinkles">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </section>
+ 
+  <!-- ═══════════════════════════════════════════
+       FORMULAIRE DE CRÉATION (admin)
+  ════════════════════════════════════════════ -->
+  <div class="form-overlay" id="formOverlay" onclick="closeFormOnOverlay(event)">
+    <div class="form-modal" id="formModal">
+      <div class="form-modal-header">
+        <h2>Créer un événement</h2>
+        <button class="btn-close" onclick="closeForm()">✕</button>
+      </div>
+ 
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="evtName">Nom de l'événement *</label>
+          <input type="text" id="evtName" placeholder="Atelier glaçage créatif…" />
+        </div>
+        <div class="form-group">
+          <label for="evtDate">Date *</label>
+          <input type="date" id="evtDate" />
+        </div>
+        <div class="form-group">
+          <label for="evtTime">Heure</label>
+          <input type="time" id="evtTime" />
+        </div>
+        <div class="form-group">
+          <label for="evtLocation">Lieu</label>
+          <input type="text" id="evtLocation" placeholder="Boutique principale, Paris…" />
+        </div>
+        <div class="form-group">
+          <label for="evtSeats">Places disponibles</label>
+          <input type="number" id="evtSeats" placeholder="20" min="1" />
+        </div>
+        <div class="form-group">
+          <label for="evtPrice">Prix (€)</label>
+          <input type="number" id="evtPrice" placeholder="0" min="0" step="0.01" />
+        </div>
+        <div class="form-group">
+          <label for="evtEmoji">Icône</label>
+          <select id="evtEmoji">
+            <option value="🍩">🍩 Donut</option>
+            <option value="🎂">🎂 Gâteau</option>
+            <option value="🧁">🧁 Cupcake</option>
+            <option value="🎉">🎉 Fête</option>
+            <option value="🍫">🍫 Chocolat</option>
+            <option value="🌸">🌸 Fleurs</option>
+            <option value="🎈">🎈 Ballons</option>
+            <option value="⭐">⭐ Spécial</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="evtDesc">Description</label>
+          <textarea id="evtDesc" rows="3" placeholder="Décrivez votre événement…"></textarea>
+        </div>
+      </div>
+ 
+      <div class="form-actions">
+        <button class="btn-ghost" onclick="closeForm()">Annuler</button>
+        <button class="btn-primary" id="btnSubmit" onclick="createEvent()">
+          Publier l'événement
+        </button>
+      </div>
+ 
+      <p class="form-error" id="formError"></p>
+    </div>
+  </div>
+ 
+  <!-- ═══════════════════════════════════════════
+       LISTE DES ÉVÉNEMENTS
+  ════════════════════════════════════════════ -->
+  <section class="events-section" id="events">
+    <div class="events-header">
+      <h2>À venir</h2>
+      <span class="events-count" id="eventsCount"></span>
+    </div>
+ 
+    <div class="loading-state" id="loadingState">
+      <div class="spinner"></div>
+      <p>Chargement des événements…</p>
+    </div>
+ 
+    <div class="events-grid" id="eventsGrid"></div>
+  </section>
+ 
+  <!-- ═══════════════════════════════════════════
+       TOAST NOTIFICATION
+  ════════════════════════════════════════════ -->
+  <div class="toast" id="toast"></div>
+ 
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer class="footer">
+    <span class="logo">🍩 Donut & Co</span>
+    <p>© 2025 — Tous droits réservés</p>
+  </footer>
+ 
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>

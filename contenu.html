@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Ring — Textes & Images</title>
+<!-- Chargement de la police Jakarta Sans -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Inclusion du CDN Font Awesome 6 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="sidebar-slot"></div>
+<main class="main">
+  <div id="topbar-slot"></div>
+  <div class="content page-enter">
+
+    <div class="two-col">
+      <!-- Colonne gauche -->
+      <div style="display:flex;flex-direction:column;gap:24px">
+
+        <!-- Texte d'accueil -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-house-chimney" style="color: var(--pink); margin-right: 8px;"></i>Texte d'accueil</div>
+          </div>
+          <div class="card-body">
+            <div class="form-group"><label>Titre principal</label><input type="text" value="Les meilleurs donuts de Paris"></div>
+            <div class="form-group"><label>Sous-titre</label><textarea rows="3">Faits à la main chaque matin avec des ingrédients frais. Commandez en ligne ou venez nous rendre visite !</textarea></div>
+            <div class="form-group"><label>Texte du bouton</label><input type="text" value="Commander maintenant"></div>
+            <button class="btn btn-primary" onclick="showToast('✅ Texte d\'accueil sauvegardé !')"><i class="fa-regular fa-floppy-disk"></i> Sauvegarder</button>
+          </div>
+        </div>
+
+        <!-- Bannière promotionnelle -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-bullhorn" style="color: var(--amber); margin-right: 8px;"></i>Bannière promotion</div>
+            <label class="toggle"><input type="checkbox" checked onchange="showToast(this.checked?'✅ Bannière activée':'🔕 Bannière désactivée')"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="card-body">
+            <div class="form-group"><label>Texte de la bannière</label><input type="text" value="-20% sur toutes les boxes ce week-end !"></div>
+            <div class="form-group"><label>Couleur de fond</label><select><option>Rose (défaut)</option><option>Amber</option><option>Vert</option><option>Rouge</option></select></div>
+            <button class="btn btn-primary" onclick="showToast('✅ Bannière mise à jour')"><i class="fa-regular fa-floppy-disk"></i> Sauvegarder</button>
+          </div>
+        </div>
+
+        <!-- Section À propos -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-star-of-life" style="color: var(--purple); margin-right: 8px;"></i>Section "À propos"</div>
+          </div>
+          <div class="card-body">
+            <div class="form-group"><label>Titre</label><input type="text" value="Notre histoire"></div>
+            <div class="form-group"><label>Description</label><textarea rows="4">Sweet Ring est née d'une passion pour les donuts artisanaux. Depuis 2020, nous confectionnons chaque jour des créations uniques avec des ingrédients soigneusement sélectionnés.</textarea></div>
+            <button class="btn btn-primary" onclick="showToast('Section À propos sauvegardée !')"><i class="fa-regular fa-floppy-disk"></i> Sauvegarder</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Colonne droite -->
+      <div style="display:flex;flex-direction:column;gap:24px">
+
+        <!-- Images du site (Style Bento / Miniatures Globy) -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-regular fa-images" style="color: var(--blue); margin-right: 8px;"></i>Images du site</div>
+          </div>
+          <div class="card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              
+              <!-- Zone Photo d'accueil avec aperçu d'arrière-plan -->
+              <div style="position:relative; background:linear-gradient(rgba(11,15,25,0.65), rgba(11,15,25,0.65)), url('image_ff5c5d.jpg') center/cover; border:1px solid var(--border); border-radius:12px; height:110px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-direction:column; gap:6px; font-size:12px; color:#ffffff; font-weight:600; transition:var(--transition);" onclick="showToast('📸 Choisissez un fichier')">
+                <i class="fa-regular fa-image" style="font-size:20px;"></i>Photo d'accueil
+              </div>
+              
+              <div style="background:var(--bg); border:2px dashed var(--border); border-radius:12px; height:110px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-direction:column; gap:6px; font-size:12px; color:var(--muted); font-weight:500; transition:var(--transition);" onclick="showToast('📸 Choisissez un fichier')" onmouseenter="this.style.borderColor='var(--text)'" onmouseleave="this.style.borderColor='var(--border)'">
+                <i class="fa-solid fa-circle-nodes" style="font-size:20px; color:var(--text);"></i>Logo boutique
+              </div>
+              
+              <div style="background:var(--bg); border:2px dashed var(--border); border-radius:12px; height:110px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-direction:column; gap:6px; font-size:12px; color:var(--muted); font-weight:500; transition:var(--transition);" onclick="showToast('📸 Choisissez un fichier')" onmouseenter="this.style.borderColor='var(--text)'" onmouseleave="this.style.borderColor='var(--border)'">
+                <i class="fa-solid fa-store" style="font-size:20px; color:var(--text);"></i>Photo boutique
+              </div>
+              
+              <div style="background:var(--bg); border:2px dashed var(--border); border-radius:12px; height:110px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-direction:column; gap:6px; font-size:12px; color:var(--text); font-weight:600; transition:var(--transition);" onclick="showToast('📸 Ajouter une image')" onmouseenter="this.style.borderColor='var(--pink)'; this.style.background='var(--pink-light)';" onmouseleave="this.style.borderColor='var(--border)'; this.style.background='var(--bg)';">
+                <i class="fa-solid fa-plus" style="font-size:20px; color:var(--pink);"></i>Ajouter image
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Informations de contact -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-map-pin" style="color: var(--green); margin-right: 8px;"></i>Infos de contact</div>
+          </div>
+          <div class="card-body">
+            <div class="form-group"><label>Adresse</label><input type="text" value="12 rue des Goûters, 75011 Paris"></div>
+            <div class="form-group"><label>Téléphone</label><input type="tel" value="01 23 45 67 89"></div>
+            <div class="form-group"><label>Email</label><input type="email" value="hello@sweetring.fr"></div>
+            <div class="form-group"><label>Horaires d'ouverture</label><textarea rows="3">Lun–Sam : 8h00 – 20h00
+Dimanche : 9h00 – 18h00</textarea></div>
+            <button class="btn btn-primary" onclick="showToast('✅ Infos de contact sauvegardées !')"><i class="fa-regular fa-floppy-disk"></i> Sauvegarder</button>
+          </div>
+        </div>
+
+        <!-- Réseaux sociaux -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-hashtag" style="color: var(--blue); margin-right: 8px;"></i>Réseaux sociaux</div>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label><i class="fa-brands fa-instagram" style="margin-right: 4px;"></i> Instagram</label>
+              <input type="text" value="@sweetring_paris">
+            </div>
+            <div class="form-group">
+              <label><i class="fa-brands fa-facebook-f" style="margin-right: 4px;"></i> Facebook</label>
+              <input type="text" value="Sweet Ring Paris">
+            </div>
+            <div class="form-group">
+              <label><i class="fa-brands fa-tiktok" style="margin-right: 4px;"></i> TikTok</label>
+              <input type="text" placeholder="@votre_compte">
+            </div>
+            <button class="btn btn-primary" onclick="showToast('✅ Réseaux sociaux sauvegardés !')"><i class="fa-regular fa-floppy-disk"></i> Sauvegarder</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Modal d'ajout rapide -->
+<div class="modal-overlay" id="modal-quick-add">
+  <div class="modal">
+    <div class="modal-title">
+      <span><i class="fa-solid fa-circle-plus" style="margin-right: 8px;"></i>Ajouter un élément</span>
+      <button class="close-btn" onclick="closeModal('modal-quick-add')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <a href="produits.html" class="btn btn-outline" style="padding:24px 16px;flex-direction:column;gap:10px;height:auto;font-size:13px;text-decoration:none;justify-content:center">
+        <i class="fa-solid fa-cookie" style="font-size: 24px; color: var(--pink);"></i>Produit
+      </a>
+      <a href="rendez-vous.html" class="btn btn-outline" style="padding:24px 16px;flex-direction:column;gap:10px;height:auto;font-size:13px;text-decoration:none;justify-content:center">
+        <i class="fa-solid fa-calendar-day" style="font-size: 24px; color: var(--blue);"></i>Rendez-vous
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="shared-layout.js"></script>
+<script>renderLayout('Textes & Images');</script>
+</body>
+</html>

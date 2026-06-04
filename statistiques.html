@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Ring — Statistiques</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="sidebar-slot"></div>
+<main class="main">
+  <div id="topbar-slot"></div>
+  <div class="content page-enter">
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-icon" style="background:var(--pink-light)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div class="stat-label">CA ce mois</div><div class="stat-value" style="color:var(--pink)">6 842€</div><div class="stat-trend">↑ +18% vs mois dernier</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:var(--blue-light)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg></div><div class="stat-label">Commandes</div><div class="stat-value">312</div><div class="stat-trend">↑ +24 cette semaine</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:var(--amber-light)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg></div><div class="stat-label">Donuts vendus</div><div class="stat-value">1 847</div><div class="stat-trend">↑ +8%</div></div>
+      <div class="stat-card"><div class="stat-icon" style="background:var(--green-light)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="stat-label">Clients actifs</div><div class="stat-value">148</div><div class="stat-trend">+12 nouveaux</div></div>
+    </div>
+
+    <div class="two-col" style="margin-bottom:20px">
+      <!-- Bar chart CA semaine -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Chiffre d'affaires — 7 derniers jours</div>
+          <span class="badge badge-pink">Cette semaine</span>
+        </div>
+        <div class="card-body">
+          <div class="chart-bar-wrap" id="bar-ca"></div>
+        </div>
+      </div>
+      <!-- Donut par catégorie -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Ventes par catégorie</div></div>
+        <div class="card-body">
+          <div class="donut-chart-wrap">
+            <svg width="130" height="130" viewBox="0 0 130 130" style="flex-shrink:0">
+              <circle cx="65" cy="65" r="45" fill="none" stroke="#F0E4E7" stroke-width="22"/>
+              <circle cx="65" cy="65" r="45" fill="none" stroke="var(--pink)" stroke-width="22" stroke-dasharray="113 170" stroke-dashoffset="0" transform="rotate(-90 65 65)"/>
+              <circle cx="65" cy="65" r="45" fill="none" stroke="var(--amber)" stroke-width="22" stroke-dasharray="65 218" stroke-dashoffset="-113" transform="rotate(-90 65 65)"/>
+              <circle cx="65" cy="65" r="45" fill="none" stroke="var(--green)" stroke-width="22" stroke-dasharray="48 235" stroke-dashoffset="-178" transform="rotate(-90 65 65)"/>
+              <circle cx="65" cy="65" r="45" fill="none" stroke="var(--blue)" stroke-width="22" stroke-dasharray="31 252" stroke-dashoffset="-226" transform="rotate(-90 65 65)"/>
+              <text x="65" y="62" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="16" fill="#111827">312</text>
+              <text x="65" y="76" text-anchor="middle" font-size="11" fill="#6B7280" font-family="Plus Jakarta Sans,sans-serif">ventes</text>
+            </svg>
+            <div class="donut-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--pink)"></div><span>Classiques — <strong>40%</strong></span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div><span>Chocolat — <strong>23%</strong></span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div><span>Box — <strong>17%</strong></span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div><span>Spéciaux — <strong>11%</strong></span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:#EAECF2"></div><span>Fruits — <strong>9%</strong></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <!-- Heures de pointe -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Heures de pointe</div><span class="badge badge-amber">Aujourd'hui</span></div>
+        <div class="card-body">
+          <div class="chart-bar-wrap" id="bar-hours"></div>
+        </div>
+      </div>
+      <!-- Classement produits -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Classement produits ce mois</div></div>
+        <table>
+          <thead><tr><th>#</th><th>Produit</th><th>Qté</th><th>CA</th><th>Tendance</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:800;color:var(--pink)">1</td><td>🍩 Glazed Classic</td><td><strong>342</strong></td><td style="font-weight:700;color:var(--pink)">1 197€</td><td><span style="color:var(--green);font-weight:600;font-size:12px">↑ +8%</span></td></tr>
+            <tr><td style="font-weight:800;color:var(--muted)">2</td><td>🍩 Box 6 assortis</td><td><strong>134</strong></td><td style="font-weight:700;color:var(--pink)">2 412€</td><td><span style="color:var(--green);font-weight:600;font-size:12px">↑ +14%</span></td></tr>
+            <tr><td style="font-weight:800;color:var(--muted)">3</td><td>🍩 Nutella Crunchy</td><td><strong>201</strong></td><td style="font-weight:700;color:var(--pink)">844€</td><td><span style="color:var(--red);font-weight:600;font-size:12px">↓ -3%</span></td></tr>
+            <tr><td style="font-weight:800;color:var(--muted)">4</td><td>🍩 Choco Sprinkles</td><td><strong>278</strong></td><td style="font-weight:700;color:var(--pink)">973€</td><td><span style="color:var(--green);font-weight:600;font-size:12px">↑ +5%</span></td></tr>
+            <tr><td style="font-weight:800;color:var(--muted)">5</td><td>🍩 Caramel Salé</td><td><strong>167</strong></td><td style="font-weight:700;color:var(--pink)">651€</td><td><span style="color:var(--amber);font-weight:600;font-size:12px">→ stable</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div class="modal-overlay" id="modal-quick-add">
+  <div class="modal">
+    <div class="modal-title">➕ Ajouter <button class="close-btn" onclick="closeModal('modal-quick-add')">×</button></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <a href="produits.html" class="btn btn-outline" style="padding:20px;flex-direction:column;gap:8px;height:auto;font-size:13px;text-decoration:none;justify-content:center"><span style="font-size:28px">🍩</span>Produit</a>
+      <a href="rendez-vous.html" class="btn btn-outline" style="padding:20px;flex-direction:column;gap:8px;height:auto;font-size:13px;text-decoration:none;justify-content:center"><span style="font-size:28px">📅</span>Rendez-vous</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="shared-layout.js"></script>
+<script>
+renderLayout('Statistiques');
+function buildBar(id, data, color) {
+  const wrap = document.getElementById(id);
+  if (!wrap) return;
+  const max = Math.max(...data.map(d=>d.v));
+  wrap.innerHTML = data.map(d=>`
+    <div class="chart-bar-group">
+      <div class="chart-val">${d.v}${d.u||''}</div>
+      <div class="chart-bar" style="height:${Math.round((d.v/max)*140)}px;background:${color}" title="${d.l}: ${d.v}${d.u||''}"></div>
+      <div class="chart-label">${d.l}</div>
+    </div>`).join('');
+}
+buildBar('bar-ca',[
+  {l:'Lun',v:198,u:'€'},{l:'Mar',v:234,u:'€'},{l:'Mer',v:312,u:'€'},
+  {l:'Jeu',v:278,u:'€'},{l:'Ven',v:421,u:'€'},{l:'Sam',v:387,u:'€'},{l:'Dim',v:247,u:'€'}
+],'var(--pink)');
+buildBar('bar-hours',[
+  {l:'8h',v:12},{l:'9h',v:28},{l:'10h',v:45},{l:'11h',v:38},{l:'12h',v:52},
+  {l:'13h',v:31},{l:'14h',v:22},{l:'15h',v:18},{l:'16h',v:35},{l:'17h',v:48},{l:'18h',v:41},{l:'19h',v:24}
+],'var(--amber)');
+</script>
+</body>
+</html>

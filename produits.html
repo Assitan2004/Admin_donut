@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homedonut — Produits</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* ===== GRILLE PRODUITS ===== */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .product-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .product-img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: #fdf0f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .promo-ribbon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--pink);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+
+  .product-info {
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .product-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  .product-cat {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .price-current {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--pink);
+  }
+
+  .price-old {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+
+  .product-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .product-actions .btn {
+    flex: 1;
+    font-size: 12px;
+    padding: 8px 10px;
+    justify-content: center;
+  }
+
+  /* Carte "Ajouter" */
+  .card-add {
+    border: 2px dashed var(--border);
+    background: transparent;
+    box-shadow: none;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .card-add:hover {
+    border-color: var(--pink);
+    background: #fdf0f6;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .card-add-inner {
+    text-align: center;
+    color: var(--muted);
+  }
+
+  .card-add-inner .plus-icon {
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--pink);
+    margin-bottom: 8px;
+  }
+
+  .card-add-inner span {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* ===== LOADER ===== */
+  .loader-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.6);
+    z-index: 9000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loader-overlay.active {
+    display: flex;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f0c;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ===== IMAGE UPLOAD PREVIEW ===== */
+  .img-preview {
+    width: 100%;
+    height: 120px;
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--muted);
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--bg);
+    transition: border-color 0.2s;
+  }
+
+  .img-preview:hover { border-color: var(--pink); }
+  .img-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Badge stock */
+  .badge-stock {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  .badge-stock.ok { background: #e8f8ec; color: #1e7e34; }
+  .badge-stock.low { background: #fff3cd; color: #856404; }
+  .badge-stock.out { background: #f8d7da; color: #721c24; }
+</style>
+</head>
+<body>
+<div id="sidebar-slot"></div>
+
+<div class="loader-overlay" id="loader">
+  <div class="spinner"></div>
+</div>
+
+<main class="main">
+  <div id="topbar-slot"></div>
+  <div class="content page-enter">
+
+    <!-- BARRE DE RECHERCHE + FILTRES -->
+    <div style="display:flex;gap:12px;margin-bottom:20px;align-items:center;flex-wrap:wrap">
+      <div class="search-wrap" style="flex:1;min-width:180px;position:relative">
+        <span class="search-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21l-4.35-4.35"/>
+          </svg>
+        </span>
+        <input type="text" id="search-input" placeholder="Rechercher un produit..." oninput="filtrerProduits()">
+      </div>
+      <select id="filter-cat" style="width:auto;font-size:13px;padding:10px 14px" onchange="filtrerProduits()">
+        <option value="">Toutes catégories</option>
+        <option>Classiques</option>
+        <option>Chocolat</option>
+        <option>Fruits</option>
+        <option>Spécial</option>
+        <option>Box</option>
+      </select>
+      <button class="btn btn-primary" onclick="openModal('modal-new-product')">+ Nouveau produit</button>
+    </div>
+
+    <!-- COMPTEUR -->
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px" id="product-count"></div>
+
+    <!-- GRILLE PRODUITS -->
+    <div class="products-grid" id="products-grid">
+      <!-- Chargé dynamiquement -->
+      <div class="product-card card-add" onclick="openModal('modal-new-product')">
+        <div class="card-add-inner">
+          <div class="plus-icon">+</div>
+          <span>Ajouter un produit</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ===== MODAL NOUVEAU PRODUIT ===== -->
+<div class="modal-overlay" id="modal-new-product">
+  <div class="modal">
+    <div class="modal-title">🍩 Nouveau produit
+      <button class="close-btn" onclick="closeModal('modal-new-product')">×</button>
+    </div>
+
+    <div class="form-group">
+      <label>Nom du produit *</label>
+      <input type="text" id="new-nom" placeholder="Ex: Vanille Pétillante">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Prix (€) *</label>
+        <input type="number" id="new-prix" step="0.10" min="0" placeholder="3.50">
+      </div>
+      <div class="form-group">
+        <label>Catégorie</label>
+        <select id="new-cat">
+          <option>Classiques</option>
+          <option>Chocolat</option>
+          <option>Fruits</option>
+          <option>Spécial</option>
+          <option>Box</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="new-desc" rows="3" placeholder="Décrivez votre création..."></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Stock disponible</label>
+        <input type="number" id="new-stock" min="0" placeholder="20">
+      </div>
+      <div class="form-group">
+        <label>Allergènes</label>
+        <input type="text" id="new-allergenes" placeholder="gluten, lait...">
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="edit-prod-desc" rows="2"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Stock</label>
+        <input type="number" id="edit-prod-stock" min="0">
+      </div>
+      <div class="form-group">
+        <label>Allergènes</label>
+        <input type="text" id="edit-prod-allergenes">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Image du produit</label>
+      <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+        <button type="button" class="btn btn-outline" onclick="document.getElementById('file-edit').click()" style="flex: 1;">
+          📁 Changer l'image
+        </button>
+        <input type="file" id="file-edit" accept="image/*" style="display:none" onchange="handleFileSelect(event, 'preview-edit', 'edit-prod-image')">
+      </div>
+      <input type="text" id="edit-prod-image" oninput="previewImage('edit-prod-image','preview-edit')">
+      <div class="img-preview" style="margin-top:8px" id="preview-edit"></div>
+    </div>
+
+  
+
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modal-new-product')">Annuler</button>
+      <button class="btn btn-primary" onclick="ajouterProduit()">+ Ajouter le produit</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL MODIFIER PRODUIT ===== -->
+<div class="modal-overlay" id="modal-edit-product">
+  <div class="modal">
+    <div class="modal-title">✏️ Modifier — <span id="edit-prod-title"></span>
+      <button class="close-btn" onclick="closeModal('modal-edit-product')">×</button>
+    </div>
+
+    <input type="hidden" id="edit-prod-id">
+
+    <div class="form-group">
+      <label>Nom</label>
+      <input type="text" id="edit-prod-name">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Prix (€)</label>
+        <input type="number" step="0.10" id="edit-prod-price">
+      </div>
+      <div class="form-group">
+        <label>Catégorie</label>
+        <select id="edit-prod-cat">
+          <option>Classiques</option>
+          <option>Chocolat</option>
+          <option>Fruits</option>
+          <option>Spécial</option>
+          <option>Box</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="edit-prod-desc" rows="3"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Stock</label>
+        <input type="number" id="edit-prod-stock" min="0">
+      </div>
+      <div class="form-group">
+        <label>Allergènes</label>
+        <input type="text" id="edit-prod-allergenes">
+      </div>
+    </div>
+
+    <div class="form-group">
+  <label>Image du produit</label>
+  <input type="file" id="new-image-file" accept="image/*" style="display:none" onchange="handleFileSelect(event, 'preview-new')">
+  
+  <button type="button" class="btn btn-outline" onclick="document.getElementById('new-image-file').click()" style="width:100%; margin-bottom:8px">
+    📁 Choisir une image sur mon PC
+  </button>
+
+  <input type="text" id="new-image" placeholder="Ou collez une URL ici..." oninput="previewImage('new-image','preview-new')">
+  
+  <div class="img-preview" style="margin-top:8px" id="preview-new">
+    Aucune image sélectionnée
+  </div>
+</div>
+
+
+    <div class="modal-actions">
+      <button class="btn btn-danger btn-sm" onclick="supprimerProduit()">🗑️ Supprimer</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-edit-product')">Annuler</button>
+      <button class="btn btn-primary" onclick="sauvegarderModification()">💾 Sauvegarder</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL PROMOTION ===== -->
+<div class="modal-overlay" id="modal-promo">
+  <div class="modal">
+    <div class="modal-title">% Promotion — <span id="promo-prod-name"></span>
+      <button class="close-btn" onclick="closeModal('modal-promo')">×</button>
+    </div>
+    <input type="hidden" id="promo-prod-id">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Réduction (%)</label>
+        <input type="number" id="promo-percent" min="1" max="90" value="20">
+      </div>
+      <div class="form-group">
+        <label>Jusqu'au</label>
+        <input type="date" id="promo-date">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Message promo</label>
+      <input type="text" id="promo-msg" placeholder="Ex: Soldes d'été !">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modal-promo')">Annuler</button>
+      <button class="btn btn-primary" onclick="appliquerPromo()">Appliquer la promo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL QUICK ADD ===== -->
+<div class="modal-overlay" id="modal-quick-add">
+  <div class="modal">
+    <div class="modal-title">➕ Ajouter
+      <button class="close-btn" onclick="closeModal('modal-quick-add')">×</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <button class="btn btn-outline" style="padding:20px;flex-direction:column;gap:8px;height:auto;font-size:13px" onclick="closeModal('modal-quick-add');openModal('modal-new-product')">
+        <span style="font-size:28px">🍩</span>Nouveau produit
+      </button>
+      <a href="rendez-vous.html" class="btn btn-outline" style="padding:20px;flex-direction:column;gap:8px;height:auto;font-size:13px;text-decoration:none;justify-content:center">
+        <span style="font-size:28px">📅</span>Rendez-vous
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="shared-layout.js"></script>
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const API = "http://127.0.0.1:5000/api";
+
+// Cache local de tous les produits (pour filtrage côté client)
+let tousLesProduits = [];
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener("DOMContentLoaded", () => {
+  renderLayout('Produits');
+  chargerProduits();
+});
+
+// ============================================================
+// 1. CHARGER LES PRODUITS DEPUIS L'API
+// ============================================================
+function chargerProduits() {
+  showLoader(true);
+
+  fetch(`${API}/produits/`)
+    .then(res => {
+      if (!res.ok) throw new Error("Erreur serveur " + res.status);
+      return res.json();
+    })
+    .then(produits => {
+      tousLesProduits = produits;
+      afficherProduits(produits);
+    })
+    .catch(err => {
+      console.error("Erreur chargement produits :", err);
+      showToast("❌ Impossible de charger les produits. Vérifie que le backend tourne.");
+    })
+    .finally(() => showLoader(false));
+}
+
+// ============================================================
+// 2. AFFICHER LES PRODUITS DANS LA GRILLE
+// ============================================================
+function afficherProduits(produits) {
+  const grid = document.getElementById('products-grid');
+
+  // Vide la grille mais garde le bouton "Ajouter"
+  grid.innerHTML = '';
+
+  if (produits.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)">
+        <div style="font-size:48px;margin-bottom:12px">🍩</div>
+        <div style="font-weight:600;margin-bottom:6px">Aucun produit trouvé</div>
+        <div style="font-size:13px">Ajoutez votre premier donut !</div>
+      </div>`;
+  } else {
+    produits.forEach(p => {
+      grid.innerHTML += creerCarteHTML(p);
+    });
+  }
+
+  // Bouton "Ajouter un produit" toujours à la fin
+  grid.innerHTML += `
+    <div class="product-card card-add" onclick="openModal('modal-new-product')">
+      <div class="card-add-inner">
+        <div class="plus-icon">+</div>
+        <span>Ajouter un produit</span>
+      </div>
+    </div>`;
+
+  // Compteur
+  document.getElementById('product-count').textContent =
+    produits.length > 0 ? `${produits.length} produit${produits.length > 1 ? 's' : ''} affiché${produits.length > 1 ? 's' : ''}` : '';
+}
+
+// ============================================================
+// 3. GÉNÉRER LE HTML D'UNE CARTE PRODUIT
+// ============================================================
+function creerCarteHTML(p) {
+  const stock = p.stock ?? 0;
+  let stockBadge = '';
+  if (stock === 0)      stockBadge = `<span class="badge-stock out">Épuisé</span>`;
+  else if (stock <= 5)  stockBadge = `<span class="badge-stock low">${stock} restants</span>`;
+  else                  stockBadge = `<span class="badge-stock ok">En stock</span>`;
+
+  const imgHTML = p.image
+    ? `<img src="${escHtml(p.image)}" alt="${escHtml(p.nom)}" onerror="this.parentElement.innerHTML='🍩'">`
+    : '🍩';
+
+  const promoRibbon = p.promotion ? `<div class="promo-ribbon">-${p.promotion}%</div>` : '';
+
+  const prixOriginal = p.prix ? parseFloat(p.prix) : 0;
+  const prixFinal = p.promotion
+    ? (prixOriginal * (1 - p.promotion / 100)).toFixed(2)
+    : prixOriginal.toFixed(2);
+
+  const prixOldHTML = p.promotion
+    ? `<span class="price-old">${prixOriginal.toFixed(2)}€</span>`
+    : '';
+
+  const promoBtn = p.promotion
+    ? `<button class="btn btn-danger" onclick="retirerPromo(${p.id})">✕ Promo</button>`
+    : `<button class="btn btn-amber" onclick="ouvrirPromo(${p.id}, '${escHtml(p.nom)}')">% Promo</button>`;
+
+  return `
+    <div class="product-card" data-id="${p.id}" data-cat="${escHtml(p.categorie || '')}">
+      <div class="product-img">
+        ${imgHTML}
+        ${promoRibbon}
+      </div>
+      <div class="product-info">
+        <div class="product-name">${escHtml(p.nom)}</div>
+        <div class="product-cat">${escHtml(p.categorie || 'Donut')} &nbsp;·&nbsp; ${stockBadge}</div>
+        <div class="price-row">
+          <span class="price-current">${prixFinal}€</span>
+          ${prixOldHTML}
+        </div>
+        <div class="product-actions">
+          <button class="btn btn-outline" onclick="ouvrirModification(${p.id})">✏️ Modifier</button>
+          ${promoBtn}
+        </div>
+      </div>
+    </div>`;
+}
+
+// ============================================================
+// 4. FILTRER (RECHERCHE + CATÉGORIE) — côté client
+// ============================================================
+function filtrerProduits() {
+  const recherche = document.getElementById('search-input').value.toLowerCase().trim();
+  const cat = document.getElementById('filter-cat').value;
+
+  const filtres = tousLesProduits.filter(p => {
+    const nomOk = p.nom.toLowerCase().includes(recherche);
+    const catOk = !cat || (p.categorie || '') === cat;
+    return nomOk && catOk;
+  });
+
+  afficherProduits(filtres);
+}
+
+// ============================================================
+// 5. AJOUTER UN PRODUIT (POST)
+// ============================================================
+function ajouterProduit() {
+  const nom   = document.getElementById('new-nom').value.trim();
+  const prix  = parseFloat(document.getElementById('new-prix').value);
+  const cat   = document.getElementById('new-cat').value;
+  const desc  = document.getElementById('new-desc').value.trim();
+  const stock = parseInt(document.getElementById('new-stock').value) || 0;
+  const img   = document.getElementById('new-image').value.trim();
+  const allerg = document.getElementById('new-allergenes').value.trim();
+
+  if (!nom || isNaN(prix) || prix <= 0) {
+    showToast("⚠️ Le nom et le prix sont obligatoires.");
+    return;
+  }
+
+  const payload = {
+    nom,
+    prix,
+    categorie: cat,
+    description: desc,
+    stock,
+    image: img || null,
+    allergenes: allerg || null
+  };
+
+  showLoader(true);
+
+  fetch(`${API}/produits/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("Erreur " + res.status);
+    return res.json();
+  })
+  .then(() => {
+    closeModal('modal-new-product');
+    viderFormulaireAjout();
+    showToast('✅ Produit ajouté avec succès !');
+    chargerProduits();
+  })
+  .catch(err => {
+    console.error(err);
+    showToast("❌ Erreur lors de l'ajout du produit.");
+  })
+  .finally(() => showLoader(false));
+}
+
+function viderFormulaireAjout() {
+  ['new-nom','new-prix','new-desc','new-stock','new-allergenes','new-image']
+    .forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('preview-new').innerHTML = 'Aucune image — entrez une URL';
+}
+
+// ============================================================
+// 6. OUVRIR LA MODAL DE MODIFICATION
+// ============================================================
+function ouvrirModification(id) {
+  const p = tousLesProduits.find(x => x.id === id);
+  if (!p) return;
+
+  document.getElementById('edit-prod-id').value    = p.id;
+  document.getElementById('edit-prod-title').textContent = p.nom;
+  document.getElementById('edit-prod-name').value  = p.nom;
+  document.getElementById('edit-prod-price').value = p.prix;
+  document.getElementById('edit-prod-stock').value = p.stock ?? '';
+  document.getElementById('edit-prod-desc').value  = p.description ?? '';
+  document.getElementById('edit-prod-allergenes').value = p.allergenes ?? '';
+  document.getElementById('edit-prod-image').value = p.image ?? '';
+
+  // Sélectionner la bonne catégorie
+  const sel = document.getElementById('edit-prod-cat');
+  for (let opt of sel.options) {
+    if (opt.value === p.categorie) { opt.selected = true; break; }
+  }
+
+  // Aperçu image
+  const prev = document.getElementById('preview-edit');
+  if (p.image) {
+    prev.innerHTML = `<img src="${escHtml(p.image)}" alt="Aperçu">`;
+  } else {
+    prev.innerHTML = 'Aucune image';
+  }
+
+  openModal('modal-edit-product');
+}
+
+// ============================================================
+// 7. SAUVEGARDER UNE MODIFICATION (PUT)
+// ============================================================
+function sauvegarderModification() {
+  const id    = document.getElementById('edit-prod-id').value;
+  const nom   = document.getElementById('edit-prod-name').value.trim();
+  const prix  = parseFloat(document.getElementById('edit-prod-price').value);
+  const cat   = document.getElementById('edit-prod-cat').value;
+  const desc  = document.getElementById('edit-prod-desc').value.trim();
+  const stock = parseInt(document.getElementById('edit-prod-stock').value) || 0;
+  const img   = document.getElementById('edit-prod-image').value.trim();
+  const allerg = document.getElementById('edit-prod-allergenes').value.trim();
+
+  if (!nom || isNaN(prix)) {
+    showToast("⚠️ Nom et prix requis.");
+    return;
+  }
+
+  const payload = { nom, prix, categorie: cat, description: desc, stock, image: img || null, allergenes: allerg || null };
+
+  showLoader(true);
+
+  fetch(`${API}/produits/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("Erreur " + res.status);
+    return res.json();
+  })
+  .then(() => {
+    closeModal('modal-edit-product');
+    showToast('💾 Produit mis à jour !');
+    chargerProduits();
+  })
+  .catch(err => {
+    console.error(err);
+    showToast("❌ Erreur lors de la mise à jour.");
+  })
+  .finally(() => showLoader(false));
+}
+
+// ============================================================
+// 8. SUPPRIMER UN PRODUIT (DELETE)
+// ============================================================
+function supprimerProduit() {
+  const id  = document.getElementById('edit-prod-id').value;
+  const nom = document.getElementById('edit-prod-title').textContent;
+
+  if (!confirm(`Supprimer définitivement "${nom}" ?`)) return;
+
+  showLoader(true);
+
+  fetch(`${API}/produits/${id}`, { method: 'DELETE' })
+  .then(res => {
+    if (!res.ok) throw new Error("Erreur " + res.status);
+    closeModal('modal-edit-product');
+    showToast('🗑️ Produit supprimé.');
+    chargerProduits();
+  })
+  .catch(err => {
+    console.error(err);
+    showToast("❌ Erreur lors de la suppression.");
+  })
+  .finally(() => showLoader(false));
+}
+
+// ============================================================
+// 9. PROMOTIONS
+// ============================================================
+function ouvrirPromo(id, nom) {
+  document.getElementById('promo-prod-id').value = id;
+  document.getElementById('promo-prod-name').textContent = nom;
+  document.getElementById('promo-percent').value = 20;
+  document.getElementById('promo-msg').value = '';
+  openModal('modal-promo');
+}
+
+function appliquerPromo() {
+  const id      = document.getElementById('promo-prod-id').value;
+  const percent = parseInt(document.getElementById('promo-percent').value);
+
+  if (!percent || percent < 1 || percent > 90) {
+    showToast("⚠️ Réduction entre 1 et 90%.");
+    return;
+  }
+
+  // Mise à jour locale du cache + re-render
+  // Si ton API supporte un champ "promotion", envoie un PUT
+  fetch(`${API}/produits/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ promotion: percent })
+  })
+  .then(res => {
+    if (!res.ok) throw new Error();
+    closeModal('modal-promo');
+    showToast(`🎉 Promo -${percent}% appliquée !`);
+    chargerProduits();
+  })
+  .catch(() => {
+    // Si l'API ne supporte pas encore le champ "promotion", applique juste côté client
+    const p = tousLesProduits.find(x => x.id == id);
+    if (p) p.promotion = percent;
+    afficherProduits(tousLesProduits);
+    closeModal('modal-promo');
+    showToast(`🎉 Promo -${percent}% affichée (non persistée)`);
+  });
+}
+
+function retirerPromo(id) {
+  fetch(`${API}/produits/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ promotion: null })
+  })
+  .then(() => {
+    showToast('Promo retirée.');
+    chargerProduits();
+  })
+  .catch(() => {
+    const p = tousLesProduits.find(x => x.id == id);
+    if (p) delete p.promotion;
+    afficherProduits(tousLesProduits);
+    showToast('Promo retirée (affichage).');
+  });
+}
+
+// ============================================================
+// UTILITAIRES
+// ============================================================
+function previewImage(inputId, previewId) {
+  const url  = document.getElementById(inputId).value.trim();
+  const prev = document.getElementById(previewId);
+  if (url) {
+    prev.innerHTML = `<img src="${escHtml(url)}" alt="Aperçu" onerror="this.parentElement.innerHTML='❌ Image introuvable'">`;
+  } else {
+    prev.innerHTML = 'Aucune image — entrez une URL';
+  }
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+function showLoader(visible) {
+  document.getElementById('loader').classList.toggle('active', visible);
+}
+
+function handleFileSelect(event, previewId) {
+  const file = event.target.files[0];
+  const preview = document.getElementById(previewId);
+  const urlInput = previewId === 'preview-new' ? 'new-image' : 'edit-prod-image';
+
+  if (file) {
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+      // On affiche l'image dans l'aperçu
+      preview.innerHTML = `<img src="${e.target.result}" alt="Aperçu">`;
+      // On stocke la version "Base64" de l'image dans l'input texte pour qu'elle soit envoyée à l'API
+      document.getElementById(urlInput).value = e.target.result;
+    };
+
+    reader.readAsDataURL(file); // Convertit l'image en texte (Base64)
+  }
+}
+</script>
+</body>
+</html>
